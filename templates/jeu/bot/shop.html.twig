@@ -1,0 +1,43 @@
+{% extends 'baseIngame.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("assets/css/bot.css") }}">
+{% endblock %}
+
+{% block title %}Citania - Robot commerçant{% endblock %}
+
+{% block body %}
+    {% include "template/alert.html.twig" %} 
+
+    <section class="back back--robotShop">
+        <h2 class="title">Robot commerçant</h2>
+        {% for product in productList %}
+            {% if product.jobCategory is not null and product.jobCategory.name == "Commerçant" %}
+                <div class="card productContainer">
+                    <img class="object" src="{{ asset("assets/Images/house/characterObject/" ~ product.slug ~ ".jpg") }}" alt="image objet">
+                    <div class="productInfos">
+                        <p>Produit :{{ product.name }}</p>
+                        <p>Prix : <span class="priceStyle">{{ product.price|replace({'.': ','}) }}</span> €</p>
+                        <p>Prix total : <span></span> €</p>
+                    </div>
+                    <form action="{{ path('jeu_bot_shop_buy') }}" method="POST">
+                        <label for="quantity">Quantité souhaitée</label>
+                        <select name="quantity">
+                            {% for i in 1..100 %}
+                                <option value="{{ i }}">{{ i }}</option>
+                            {% endfor %}
+                        </select>
+                        <input type="hidden" name="price" value="{{ product.price }}">
+                        <input type="hidden" name="product" value="{{ product.name }}">
+                        <input type="hidden" name="slug" value="{{ product.slug }}">
+                        <button type="submit">Acheter</button>
+                    </form>
+                </div>
+            {% endif %} 
+        {% endfor %}
+    </section>
+
+    
+    <a class="link backLink" href="{{ path('jeu_town') }}">Retour au centre ville</a>
+
+{% endblock %}

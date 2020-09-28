@@ -1,0 +1,229 @@
+main{
+    padding: 0;
+}
+
+.playerInformations, .playerInformations .stats, .buyCoins form, .games{
+    display: flex;
+}
+
+div.padding{
+    padding: 2em;
+    box-sizing: content-box;
+}
+
+.buyCoins{
+    background-color: #dddddd;
+    padding: 1em 2.5em;
+}
+
+.buyCoins form{
+    justify-content: space-between;
+    align-items: center;
+}
+
+.buyCoins form button{
+    border: none;
+    background-color: #449b50;
+}
+
+.buyCoins form select{
+    border-bottom: 2px solid #449b50;
+}
+
+.buyCoins p{
+    align-self: center;
+}
+
+.bancasino, .bancasino img{
+    width: 100%;
+}
+
+.bancasino img{
+    border-radius: 40px 40px 0 0;
+}
+
+.bancasino{
+    position: relative;
+    margin: auto;
+}
+
+.bancasino a{
+    display: block;
+    text-align: center;
+    width: 100px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 10%;
+    margin: auto;
+    padding: 1em;
+    background-color: #449b50;
+    color: white;
+    font-weight: bold;
+    border-radius: 10px;
+}
+
+.playerInformations .stats{
+    width: 50%;
+    justify-content: space-around;
+}
+
+.playerInformations .stats a{
+    color: #c03838 !important;
+}
+
+.playerInformations button{
+    border: none;
+    background-color: #449b50;
+    color: white;
+    border-radius: 10px;
+    padding: 1em;
+}
+
+.playerInformations{
+    align-items: center;
+    width: 100%;
+    padding: 1.5em 2.5em;
+    background-color: #cacaca;
+    justify-content: space-between;
+}
+
+.playerInformations p{
+    color: #383838;
+    font-weight: bold;
+}
+
+.playerInformations p span{
+    font-weight: normal;
+    color: #c03838;
+}
+
+.games{
+    width: 100%;
+    justify-content: space-evenly;
+}
+
+#games, .games{
+    margin: 1.5em 0;
+}
+
+#games h2{
+    font-size: 1.1em;
+    color: #c03838;
+}
+
+.card-game{
+    width: 32%;
+    margin: .2em;
+}
+
+.card-game a{
+    display: block;
+    text-align: center;
+}
+
+.card-game img{
+    border-radius: 10px;
+    width: 100%;
+    opacity: .5;
+    transition: .2s;
+}
+
+.card-game a:hover img{
+    opacity: 1;
+}
+
+.buyCoinsDiamond{
+    text-decoration: underline;
+    color: #c03838;
+}
+
+.bancasino a:hover, section a:hover, button:hover{
+    color: #86c28e;
+    transition: .4s;
+}
+
+.leaderboard{
+    margin: 2.5em 0;
+}
+
+.leaderboard h2{
+    width: 100%;
+    background-color: #c03838;
+    color: white;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 1.1em;
+    padding: 1em 0;
+    margin: 1.5em 0;
+}
+
+.fade-enter-active, .fade-leave-active{
+    transition:  .5s;
+}
+
+.fade-enter, .fade-leave-active{
+    opacity: 0;
+    transform: translateY(50px);
+}
+
+.container--leftSideLink{
+    margin-top: 2em !important;
+    margin-left: -11.4em !important;
+}
+
+.leaderbordLists{
+    display: flex;
+}
+
+.leaderbordLists ul {
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.leaderboard li{
+    border-radius: 5px;
+    margin: .2em;
+    display: flex;
+    align-items: center;
+    padding: .4em 0;
+    background-color: #e9e9e9;
+    border-bottom: 1px solid #cecece;
+}
+
+.player span{
+    display: block;
+    background-color: #cacaca;
+    color: #c03838;
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+    padding: .5em 0;
+    margin: 0 1em;
+}
+
+.player a{
+    color: #c03838;
+}
+
+.coins span{
+    color: rgb(145, 122, 22);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

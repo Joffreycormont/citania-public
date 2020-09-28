@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Citania - Page d'accueil{% endblock %}
+
+{% block body %}
+
+    <section class="presentation">
+        <section data-aos="fade-right" data-aos-duration="1500" class="description">
+            <h3 data-aos="fade-left" data-aos-duration="1500">Citania c'est quoi ?</h3>
+            <p data-aos="fade-right" data-aos-duration="1500">Citania est un <strong>jeu de simulation de vie</strong> sur navigateur (adapté sur navigateur mobile/tablette également) de type role-play, en même temps qu'un <strong>réseau social</strong> permettant de se mettre dans la peau d'un personnage au coeur d'une ville tout en développant votre histoire, tu pourras à travers ce jeu effectuer plusieurs actions comme : <strong>avoir un métier (Avocat, Policier, Médecin, Hackeur, Voleur, Président etc...), interagir avec la communauté des joueurs, avoir des enfants, une famille, se marier, jouer au loto, avoir une maison personnalisable</strong> et beaucoup d'autres choses à découvrir !</p>
+            {% if is_granted('ROLE_USER') == false %}
+                <h2 class="registerDescriptionLink"><a href="{{ path('user_register') }}" title="Bouton d'inscritpion">Je me lance</a></h2>
+            {% endif %}
+        </section>
+
+        <section class="personnageDesc">
+            <h3>Crée ton personnage</h3>
+        </section>
+
+        <div>
+            <img data-aos="fade-right" data-aos-duration="1500" class="immArbre" src="{{ asset("assets/Images/imm-arbre.png") }}" alt="decoration">
+        </div>
+    </section>
+    <div class="partnersContainer">
+        <h3 class="partnersTitle">Nos partenaires</h3>
+        <div class="partners">
+            <div class="partner partner--meilleurjeucom">
+                <a href="https://www.meilleurjeu.com" target="_blank" title="Nouvel onglet vers meilleurjeu.com"><img width="170px" src="{{ asset('assets/Images/newlogo-2013.png') }}" alt="logo meilleurjeu.com"></a>
+            </div>
+            <div class="partner partner--meilleurjeucom">
+                <a href="https://www.meilleurjeu.com" target="_blank" title="Nouvel onglet vers meilleurjeu.com"><img width="170px" src="{{ asset('assets/Images/newlogo-2013.png') }}" alt="logo meilleurjeu.com"></a>
+            </div>
+            <div class="partner partner--meilleurjeucom">
+                <a href="https://www.meilleurjeu.com" target="_blank" title="Nouvel onglet vers meilleurjeu.com"><img width="170px" src="{{ asset('assets/Images/newlogo-2013.png') }}" alt="logo meilleurjeu.com"></a>
+            </div>
+            <div class="partner partner--meilleurjeucom">
+                <a href="https://www.meilleurjeu.com" target="_blank" title="Nouvel onglet vers meilleurjeu.com"><img width="170px" src="{{ asset('assets/Images/newlogo-2013.png') }}" alt="logo meilleurjeu.com"></a>
+            </div>
+            <div class="partner partner--meilleurjeucom">
+                <a href="https://www.meilleurjeu.com" target="_blank" title="Nouvel onglet vers meilleurjeu.com"><img width="170px" src="{{ asset('assets/Images/newlogo-2013.png') }}" alt="logo meilleurjeu.com"></a>
+            </div>
+            <div class="partner partner--meilleurjeucom">
+                <a href="https://www.meilleurjeu.com" target="_blank" title="Nouvel onglet vers meilleurjeu.com"><img width="170px" src="{{ asset('assets/Images/newlogo-2013.png') }}" alt="logo meilleurjeu.com"></a>
+            </div>
+            <div class="partner partner--meilleurjeucom">
+                <a href="https://www.meilleurjeu.com" target="_blank" title="Nouvel onglet vers meilleurjeu.com"><img width="170px" src="{{ asset('assets/Images/newlogo-2013.png') }}" alt="logo meilleurjeu.com"></a>
+            </div>
+            <div class="partner partner--meilleurjeucom">
+                <a href="https://www.meilleurjeu.com" target="_blank" title="Nouvel onglet vers meilleurjeu.com"><img width="170px" src="{{ asset('assets/Images/newlogo-2013.png') }}" alt="logo meilleurjeu.com"></a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

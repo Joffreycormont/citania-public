@@ -1,0 +1,39 @@
+{% extends 'baseIngame.html.twig' %}
+
+{% block title %}Citania - Mon Boulot{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("assets/css/profil.css") }}">
+    <link rel="stylesheet" href="{{ asset("assets/css/jobWork.css") }}">
+{% endblock %}
+
+
+
+{% block body %}
+
+<div class="pageTitle">
+    <h3>Mon Boulot</h3>
+</div>
+    {% include "template/alert.html.twig" %} 
+
+    <section class="back back--jobDescription">
+        <h2 class="title">Coach sportif</h2>
+        <div class="headerJob">
+            <img src="{{ asset("assets/Images/jobs/" ~ characterGlobal.job.slug ~ ".jpg") }}" width="200px" alt="image métier">
+            <div class="jobInfos">
+                <p>Bienvenue dans ta salle de sport, tu peux ici gérer les demandes d'activités des Citaniens
+                    Tu peux proposer trois activités, mais par la suite tu pourras en proposer davantage si tu le souhaites.<br> Pour cela tu devras investir dans le matériel correspondant dans ta salle en les déverouillant moyennant un coût.
+                     <br><br>
+                    Ton salaire est de : <span class="priceStyle">{{ characterGlobal.job.salary }}</span> € / jour. <br><br>
+                    Attention si tu es inactif trop longtemps tu peux te faire licencier.
+                </p>
+            </div>
+        </div>
+    </section>
+
+
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}

@@ -1,0 +1,119 @@
+{% extends 'baseIngame.html.twig' %}
+
+{% block title %}Citania - Mon Boulot{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("assets/css/profil.css") }}">
+    <link rel="stylesheet" href="{{ asset("assets/css/jobWork.css") }}">
+    <link rel="stylesheet" href="{{ asset("assets/css/factor.css") }}">
+{% endblock %}
+
+
+
+{% block body %}
+
+<div class="pageTitle">
+    <h3>Mon Boulot</h3>
+</div>
+    {% include "template/alert.html.twig" %} 
+
+    <section class="back back--jobDescription">
+    <h2 class="title">Facteur(trice)</h2>
+        <div class="headerJob">
+            <img src="{{ asset("assets/Images/jobs/" ~ characterGlobal.job.slug ~ ".jpg") }}" width="200px" alt="image métier">
+            <div class="jobInfos">
+                <p>Bienvenue dans ton bureau de poste , je suis le maire de Citania. <br>
+                    Ton travail consistera à vendre des timbres et de livrer le courrier envoyé par les citaniens. <br>
+                    Tu toucheras le prix de vente de tes timbres en plus de ton salaire.
+                     <br><br>
+                    Ton salaire est de : <span class="priceStyle">{{ characterGlobal.job.salary }}</span> € / jour. <br><br>
+                    Attention si tu es inactif trop longtemps tu peux te faire licencier.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="back back--jobPresentation">
+        <h2 class="title">Ma présentation</h2>
+
+        <form action="{{ path('jeu_work_editPresentation') }}" method="POST">
+            <textarea name="content" id="content">{% if characterGlobal.jobPresentation is not null  %}{{ characterGlobal.jobPresentation|raw }}{% endif %}</textarea>
+            <button type="submit">Modifier</button>
+        </form>
+
+    </section>
+
+    <ul class="stampContainer">
+        <section class="back back--command-stamp">
+            <h2 class="title">Commande chez le fournisseur</h2>
+            <form action="{{ path('work_factor_commandProvider') }}" method="POST">
+                <div>
+                    <img style="width: 75px;" src="{{ asset("assets/Images/stamp.png") }}" alt="image timbre">
+                    <div class="">
+                        <p>Le gouvernement finance les bureaux de poste pour les commandes de timbre, tu n'as donc pas à gérer ce budget.</p><br>
+                        <p><strong>Commande de timbre</strong></p>
+                        <label for="quantity">Quantité (max : 99)</label>
+                        <input min="0" type="number" name="quantity" id="quantity" min="0" max="99">     
+                        <button type="submit">Commander</button>           
+                    </div>
+                </div>
+            </form>
+        </section>
+
+        <section class="back back--stamp-stock">
+            <h2 class="title">Mon stock de timbre</h2>
+            <form action="{{ path('work_factor_changePrice') }}" method="POST">
+                <div>
+                    <img style="width: 75px;" src="{{ asset("assets/Images/stamp.png") }}" alt="image timbre">
+                    <div class="">
+                        <p><strong>{{ characterGlobal.stampStock.quantity }} / 200</strong> timbres en stock</p>
+                    </div>
+                </div>
+                <div class="changePriceStamp">
+                    <label for="price">Modifier le prix de vente<br> (min: 0.55 €, max : 1 €)</label>
+                    <input type="number" id="price" name="price" value="{{ characterGlobal.stampStock.price }}" min="0.55" max="1" step="0.01">
+                    <button type="submit">Modifier</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="back back--factorActivity">
+            <h2 class="title">Prime d'activité</h2>
+            <ul class="factorPrices">
+                <h3>Lettres postées : {{ characterGlobal.stampStock.postedLetter }}</h3>
+                <h3>Nombre de lettre à poster :</h3>
+                {% for price in factorPriceList %}
+                    <li>
+                        {% if characterGlobal.stampStock.postedLetter >= price.numberToReach %}
+                            <img width="25px" src="{{ asset("assets/Images/validIcon.png") }}" alt="validation icone">
+                        {% else %}
+                            <div class="blockEmptyImage"></div>        
+                        {% endif %}
+                        <span>
+                            <strong>{{ price.numberToReach }}</strong> | récompense : <strong> {{ price.price }} €</strong> 
+                        </span>
+                    </li>
+                {% endfor %}
+            </ul>
+        </section>
+
+        <section class="back">
+            <h2 class="title">Lettres à valider</h2>
+            <div class="messageList">
+                {% for message in messageList %}
+                    <div class="message--item">
+                        <img width="30px" src="{{ asset("assets/Images/lettericon.png") }}" alt="image lettre">
+                        <div>
+                            <p>Tu as une lettre à poster</p>
+                            <a class="link" href="{{ path('work_factor_acceptLetter', {id: message.id}) }}">Poster la lettre</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}

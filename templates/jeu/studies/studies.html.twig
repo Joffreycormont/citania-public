@@ -1,0 +1,92 @@
+{% extends 'baseIngame.html.twig' %}
+
+{% block title %}Citania - Mes études{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("assets/css/mystudies.css") }}">
+{% endblock %}
+
+
+{% block body %}
+    {% include "template/alert.html.twig" %}
+     
+    <div class="pageTitle">
+        <p>Mes études</p>
+    </div>
+
+    <p>{{ app.request.query.get('examResult')|raw }}</p>
+ 
+
+    <section class="back back--mystudies">
+        <h2 class="title">Formation en cours</h2>
+        {% for study in studiesList %}
+            {% if study.isVip == 1 and study.status == 0 %}
+                <div class="studyContainer">
+                    <img style="width: 300px;" class="jobsLogo" src="{{ asset("assets/Images/jobs/" ~ study.study.slug ~ ".jpg") }}" alt="image métier">
+                    <div class="studyInfos">
+                        <h3>{{ study.study.name }} <span class="VIP">Mode V.I.P</span></h3>
+                        <p><strong>Durée de mes études :</strong> Immédiate</p>
+                        <p><strong>Information :</strong> <span class="note">En étude V.I.P vous avez la possibilité de terminer vos études tout de suite pour avoir votre diplôme cependant, nous vous conseillons tout de même de jeter un oeil aux cours avant de valider le diplôme, puisque vous serez renvoyé sur un examen avant de définitivement obtenir le diplôme.</span></p><br><br>
+                        <p><strong>Description :</strong> {{ study.study.description }}</p>
+
+                        {% if study.durationStatus == study.study.duration %}
+                            <a href="{{ path('jeu_studies_examen', {id: study.study.id}) }}">Passer mon examen</a>
+                        {% endif %}
+
+                        <a href="{{ path('jeu_studies_lessons_withoutProf', {id: study.study.id}) }}">Acceder à mes cours</a>
+
+                        <div class="askContainer">
+                            <a @click.prevent="jobToggle" class="stop" href="#">Annuler ma formation</a>
+                            <p class="validNewJob modalClosed">Es-tu sûr ?<br><br><a class="yesJob" href="{{ path('jeu_formationCenter_leave', {id: study.id}) }}">Oui</a> <a class="noJob" @click.prevent="jobToggleOff" href="">Non</a></p>
+                        </div>
+
+                    </div>
+                </div>
+            {% else %}
+                {% if study.status == 0 %}
+                    <div class="studyContainer">
+                        <img class="jobsLogo" src="{{ asset("assets/Images/jobs/" ~ study.study.slug ~ ".jpg") }}" alt="image métier">
+                        <div class="studyInfos">
+                            <h3>{{ study.study.name }} <span class="withoutProf">Mode sans professeur</span></h3>
+                            <p><strong>Durée de mes études :</strong> {{ study.study.duration }} ans</p>
+
+                            <p><strong>Information :</strong> <span class="note">En étude sans professeur vous avez accès à un cours fourni par le ministère de l'éducation et de la culture qui vous permettra d'apprendre votre métier avant de passer vos examens à la fin de votre formation. <br> Un bouton s'affichera à ce moment.</span></p><br><br>
+
+                            <p><strong>Description :</strong> {{ study.study.description }}</p>
+                            
+                            <p><strong>Statut :</strong> année {{ study.durationStatus }} / {{ study.study.duration }}</p>
+                            {% if study.durationStatus == study.study.duration %}
+                                <a href="{{ path('jeu_studies_examen', {id: study.study.id}) }}">Passer mon examen</a>
+                            {% endif %}
+
+                            <a href="{{ path('jeu_studies_lessons_withoutProf', {id: study.study.id}) }}">Acceder à mes cours</a>
+
+                            <div class="askContainer">
+                                <a @click.prevent="jobToggle" class="stop" href="#">Annuler ma formation</a>
+                                <p class="validNewJob modalClosed">Es-tu sûr ?<br><br><a class="yesJob" href="{{ path('jeu_formationCenter_leave', {id: study.id}) }}">Oui</a> <a class="noJob" @click.prevent="jobToggleOff" href="">Non</a></p>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endif %}
+            
+        {% endfor %}
+        {% if studiesListActive|length < 1 %}
+            <p>Tu ne suis aucune formation pour le moment</p>
+        {% endif %}
+    </section>
+
+    <section class="back back--mystudies--done">
+        <h2 class="title">Mes diplômes</h2>
+        {% for study in studiesList %}
+            {% if study.status == 1 %}
+                <img class="diplome" src="{{ asset("assets/Images/diplome/" ~ study.study.slug ~ ".jpg") }}" alt="image diplome">
+            {% endif %}
+        {% endfor %}
+    </section>
+
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}

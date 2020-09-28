@@ -1,0 +1,85 @@
+{% extends 'baseIngame.html.twig' %}
+
+{% block title %}Citania - Mon Boulot{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("assets/css/profil.css") }}">
+    <link rel="stylesheet" href="{{ asset("assets/css/jobWork.css") }}">
+{% endblock %}
+
+
+
+{% block body %}
+
+<div class="pageTitle">
+    <h3>Mon Boulot</h3>
+</div>
+    {% include "template/alert.html.twig" %} 
+
+    <section class="back back--jobDescription">
+        <h2 class="title">Eboueur</h2>
+        <div class="headerJob">
+            <img src="{{ asset("assets/Images/jobs/" ~ characterGlobal.job.slug ~ ".jpg") }}" width="200px" alt="image métier">
+            <div class="jobInfos">
+                <p>Bienvenue dans ton espace de travail, en tant qu'éboueur ton travail est de faire le ramassage des poubelles en ville. <br>
+                    Tu retrouves ci-dessous une liste des dépôts effectués par les habitants de la ville, tu dois donc valider les ramassages. Être actif te permet bien sûr d'assurer ton salaire journalier mais également de gagner des récompenses supplémentaires. <br><br>
+                    Tu dois donc gérer la capacité de stockage de ton camion et donc le vider régulièrement à la déchetterie. <br><br>
+                    Ton salaire est de : <span class="priceStyle">{{ characterGlobal.job.salary }}</span> € / jour. <br><br>
+                    Attention si tu es inactif trop longtemps tu peux te faire licencier.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="back back--jobPresentation">
+        <h2 class="title">Ma présentation</h2>
+
+        <form action="{{ path('jeu_work_editPresentation') }}" method="POST">
+            <textarea name="content" id="content">{% if characterGlobal.jobPresentation is not null  %}{{ characterGlobal.jobPresentation|raw }}{% endif %}</textarea>
+            <button type="submit">Modifier</button>
+        </form>
+
+    </section>
+
+    <section class="back back--trashTruck">
+        <h2 class="title">Mon camion</h2>
+        <div class="trashTruckContainer">
+            <img class="trashTruck" src="{{ asset("assets/Images/trashTruck.jpg") }}" alt="image camion d'eboueur">
+            <div class="truckInfos">
+                <p>Tu reçois un bonus en remplissant ton camion et en le vidant à la déchetterie, jusqu'a 225 € pour un camion complet. <br><br>
+                   <strong> - Les primes vont de 35 € pour les plus petits dépôt à 225 € pour un camion complet.</strong><br>
+                   <strong> - Dépôt de 250 Kg minimum.</strong>
+                </p>
+                <p>Capacité de mon camion (2500 Kg)</p>
+                <p><span class="{% if characterGlobal.truckWaste.capacity > 1850 %} hard {% elseif characterGlobal.truckWaste.capacity > 850 %} medium {% endif %}"> {{ characterGlobal.truckWaste.capacity }}</span> Kg / 2500</p>
+                <a href="{{ path('work_eboueur_wasteCollection', {id: characterGlobal.truckWaste.id}) }}">Faire un dépot à la déchetterie</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="jobAction" class="back back--eboueurJob">
+        <h2 class="title">Ramassage des poubelles</h2>
+        <h3>Toutes les demandes de ramassage : </h3>
+
+        
+        {% if wasteList is empty %}
+            <p>La ville est propre pour le moment :)</p>
+        {% endif %}
+            <div class="wasteRequestContainer">
+                {% for wasteRequest in wasteList %}
+                    {% if wasteRequest is not null %}
+                        <div class="wasteRequest">
+                            <p>Demande de {{ wasteRequest.characters.firstname }} - {{ wasteRequest.characters.lastname }} pour {{ wasteRequest.weight }} kg</p>
+                            <a href="{{ path('work_eboueur_validWaste', {id: wasteRequest.id}) }}">Valider le ramassage <img src="{{ asset("assets/Images/jobs/eboueur.jpg") }}" width="20px" alt=""></a>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+    </section>
+
+
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}

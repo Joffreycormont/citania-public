@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Citania - Mon compte{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("assets/css/persoAccount.css") }}">
+{% endblock %}
+
+{% block body %}
+    <main>
+
+        <section class="accountContainer">
+            <section class="accountInfos">
+                <div class="back back--personnalAccount">
+                    <h2 class="title">Mes informations personnelles</h2>
+
+                    <p>Email : {{ user.email }}</p>
+                    <p>Mot de passe : *************** (encrypté)</p>
+                    <br>
+                    <p>Prénom (joueur) : {{ user.characters.firstname }}</p>
+                    <p>Nom (joueur) : {{ user.characters.lastname }}</p>
+                    <br>
+                    <a class="link" href="{{ path('contact') }}">Faire une demande pour changer mon nom/prénom</a>
+
+                </div>
+
+                <div class="back back--command">
+                    <h2 class="title">Historique de mes commandes</h2>
+                    {% for command in commandList %}
+                        <div class="command">
+                            <div class="commandName">
+                                <h3>N° de commande : {{ command.id }}</h3>
+                                <p>{{ command.name }}</p>
+                            </div>
+                            <p>Quantité : {{ command.quantity }}</p>
+                            <p>Prix total: {{ command.price|replace({'.': ','}) }} €</p>
+                            <p>Commande effectué le : {{ command.createdAt|date('d/m/y') }} à {{ command.createdAt|date('H') }} h {{ command.createdAt|date('i') }}</p>
+                        </div>
+                    {% endfor %}
+                    <div class="paginator">
+                        {{ knp_pagination_render(commandList) }}
+                    </div>
+                </div>
+            </section>
+
+            <section class="back back--personnalAccount modif">
+                <h2 class="title">Modifier mes informations</h2>
+
+                {% include "template/alert.html.twig" %}
+
+                <section>
+                    <h5>Mot de passe :</h5>
+                    <form action="{{ path('user_newPassword') }}" method="POST">
+                        <div>
+                            <label for="">Mon mot de passe actuel</label>
+                            <input type="password" name="currentPassword" id="currentPassword" placeholder="Votre mot de passe actuel..." >
+                        </div>
+                        <div>
+                            <label for="">Mon nouveau mot de passe</label>
+                            <input type="password" name="newPassword" id="newPassword" placeholder="Votre nouveau mot de passe..." >
+                        </div>
+                        <div>
+                            <label for="">Confirmation</label>
+                            <input type="password" name="confirmNewPassword" id="confirmNewPassword" placeholder="Confirmation..." >
+                        </div>
+                        <button type="submit">Modifier</button>
+                    </form>
+                </section>
+
+                
+                <section class="">
+                    <h5>Email:</h5>
+                    <form action="{{ path('user_newEmail') }}" method="POST">
+                        <div>
+                            <label for="">Mon nouvel email</label>
+                            <input type="email" name="newEmail" id="newEmail" placeholder="Votre nouvel email..." required>
+                        </div>
+                        <button type="submit">Modifier</button>
+                    </form>
+                </section>
+
+            </section>
+        </section>
+    </main>
+{% endblock %}

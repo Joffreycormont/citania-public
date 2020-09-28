@@ -1,0 +1,97 @@
+<div class="alertContainer">
+    {% for message in app.flashes('error') %}
+        <div class="alert alert-error" v-if="displayed">
+            {{ message }}
+        </div>
+    {% endfor %}
+    
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success" v-if="displayed">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    {% for message in app.flashes('warning') %}
+        <div class="alert alert-warning" v-if="displayed">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    {% if error is defined %}
+        {% if error %}
+            <div class="alert alert-error">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+    {% endif %}
+
+    {% if app.user %}
+        <!--<div class="mb-3">
+            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+        </div>-->
+    {% endif %}
+
+    
+    {% if app.request.get('_route') %}  
+    
+        {% if app.request.get('_route') == 'jeu_house' %} 
+            <div class="houseFlashMessage">
+                <div v-if="flashMessage != ''" class="alertHouse alert-success">
+                    ${ flashMessage }
+                </div>
+            </div>
+
+            {% if characterGlobal.waste > 80 %}
+                <div class="alert alert-error" v-if="displayed">
+                    Attention, il devient urgent de sortir vos poubelles !
+                </div>
+            {% endif %}
+
+            {% if characterGlobal.urine > 80 %}
+                <div class="alert alert-error" v-if="displayed">
+                    Attention, vous avez un taux d'urine dangereux pour la santé !
+                </div>
+            {% endif %}
+
+            {% if characterGlobal.stools > 80 %}
+                <div class="alert alert-error" v-if="displayed">
+                    Attention, vous avez un taux de selles dangereux pour la santé !
+                </div>
+            {% endif %}
+
+            {% if characterGlobal.sickness > 80 %}
+                <div class="alert alert-error" v-if="displayed">
+                    Attention, il devient urgent de voir un médecin !
+                </div>
+            {% endif %}
+
+            {% if characterGlobal.life < 20 %}
+                <div class="alert alert-error" v-if="displayed">
+                    Attention, votre taux de vitalité et dangereusement bas, vous DEVEZ voir un médecin !
+                </div>
+            {% endif %}
+
+            {% if characterGlobal.food < 20 %}
+                <div class="alert alert-error" v-if="displayed">
+                    Attention, vous êtes affamé !
+                </div>
+            {% endif %}
+
+            {% if characterGlobal.water < 20 %}
+                <div class="alert alert-error" v-if="displayed">
+                    Attention, vous êtes assoiffé !
+                </div>
+            {% endif %}
+
+            {% if characterGlobal.shape < 20 %}
+                <div class="alert alert-warning" v-if="displayed">
+                    Attention, ta condition physique est basse !
+                </div>
+            {% endif %}
+
+            {% if characterGlobal.cleanliness < 20 %}
+                <div class="alert alert-warning" v-if="displayed">
+                    Attention, ta propreté est basse !
+                </div>
+            {% endif %}
+        {% endif %}
+    {% endif %}
+</div>

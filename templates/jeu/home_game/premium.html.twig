@@ -1,0 +1,32 @@
+{% extends 'baseIngame.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("assets/css/premium.css") }}">
+    <script src="https://js.stripe.com/v3/"></script>
+{% endblock %}
+
+{% block title %}Citania - Premium{% endblock %}
+
+{% block body %}
+
+{% include "template/alert.html.twig" %} 
+
+<section class="back back--shop">
+    <h2 class="title">Boutique premium</h2>
+    <p>L'achat de diamants permet d'avancer plus vite dans le jeu, et de débloquer des fonctionnalités supplémentaires. <br>
+        <strong>Chaque achat soutient Citania et nous vous en remerçions !</strong>
+    </p>
+    <stripebutton></stripebutton>
+</section>
+
+
+
+
+
+
+
+{% endblock %}
+
+
+
+

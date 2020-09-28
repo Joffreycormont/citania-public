@@ -1,0 +1,21 @@
+.news{
+    border-bottom: 1px solid rgb(212, 208, 208);
+    padding: 1em 0;
+    width: 100%;
+}
+
+.news p{
+    color: rgb(179, 172, 172);
+    padding: 1em;
+}
+
+.newsTag{
+    background-color: #bd5151;
+    color: #fff;
+    font-size: .80em;
+    margin-bottom: .5em;
+    padding: .5em 1em;
+    border-radius: 60px;
+    width: 100px;
+    text-align: center;
+}

@@ -1,0 +1,52 @@
+{% extends 'baseIngame.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("assets/css/blackjack.css") }}">
+{% endblock %}
+
+{% block title %}Citania - Blackjack{% endblock %}
+
+{% block body %}
+    {% include "template/alert.html.twig" %}
+
+	<a href="{{ path('jeu_casino') }}" class="link">Retour à l'accueil du casino</a>
+
+    <section class="back back--rules">
+        <h2 class="title">Régles du jeu</h2>
+        <div class="rules">
+            <h3>Principe du jeu</h3>
+            <p>Le Blackjack est un jeu de hasard dans lequel le principe est de gagner contre la banque en obtenant un résultat supérieur à celui de la banque et sans dépasser 21 avec vos cartes de jeu.</p>
+            <h3>Fonctionnement du jeu</h3>
+            <p>Vous commercer une partie en cliquant sur le bouton du même nom, il vous faudra ensuite choisir le montant que vous voulez parier pour la manche suivante.<br>
+                Une fois le pari validé, la banque distribue deux cartes pour vous et elle même, une des deux cartes de la banque reste face caché au joueur.<br>
+                C'est ensuite à vous de choisir l'action que vous voulez entreprendre.
+            </p>
+            <h3>Les actions possibles</h3>
+            <p>
+                <ul>
+                    <li> <strong>Nouvelle carte : </strong>vous pouvez choisir de piocher autant de carte que vous le souhaitez, le but étant toujours de ne pas dépasser 21 au total.</li>
+                    <li> <strong>Rester :</strong> vous décidez de ne pas piocher de nouvelle carte, c'est donc au tour de la banque de tirer ses cartes. <br>
+                        Elle doit donc tirer des cartes jusqu'a avoir 17 minimum à partir de là, soit la banque bat votre main, soit elle est inférieur à la votre (vous gagnez), soit elle dépasse 21 (vous gagnez aussi).
+                    </li>
+                    <li> <strong>Doubler le pari : </strong>vous choisissez de doubler votre pari initiale en échange d'une seule carte avant le tirage des cartes de la banque.</li>
+                </ul>
+            </p>
+            <h3>Valeur des cartes</h3>
+            <p>
+                <ul>
+                    <li><strong>- </strong>Les figures roi(K), la reine(Q), le valet(J) sont des cartes qui valent toutes 10 points.</li>
+                    <li><strong>- </strong>L'AS est un peu particulier, il vaut soit 1 ou 11 points selon l'envie du joueur.</li>
+                    <li><strong>- </strong>Toutes les autres cartes valent le chiffre de la carte.</li>
+                </ul>
+            </p>
+            <h3>Comment gagner</h3>
+            <p>En cas de Blackjack (un AS et une figure qui vaut 10 points) vous gagnez directement 1.5 fois votre mise au lieu d'une fois.</p>
+            <p>En cas d'égalité vous récupérez votre mise de base.</p>
+            <p>Autrement il vous faut battre la main de la banque sans pour autant dépasser 21, dans ce cas vous gagnez 1 fois votre mise, <br> exemple : mise de 100 jetons, gain de 200 jetons.</p>
+            <p>Bonne chance et bon jeu !</p>
+        </div>
+    </section>
+
+	<blackjack-casino></blackjack-casino>	
+
+{% endblock %}

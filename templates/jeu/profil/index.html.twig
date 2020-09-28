@@ -1,0 +1,250 @@
+{% extends 'baseIngame.html.twig' %}
+
+{% block title %}Citania - Mon profil{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("assets/css/profil.css") }}">
+{% endblock %}
+
+{% set commentsList = commentsList %}
+
+{% block body %}
+    <div class="pageTitle">
+        <p>Mon profil</p>
+    </div>
+
+        {% include "template/alert.html.twig" %}
+
+
+        <section class="profilInformations">
+            <div class="personnage">
+                <div class="persoContainer">
+                    <img src="
+                    {% if characterGlobal.sexe == "femme" %}
+                        {{ asset("assets/Images/fille.png") }}
+                    {% elseif characterGlobal.sexe == "homme" %}
+                        {{ asset("assets/Images/homme.png") }}
+                    {% endif %}" 
+                    alt="">
+                </div>
+                <div class="personnageNames">
+                    
+                    <p><span>Nom : </span> {{ characterGlobal.lastname }}</p>
+                    <p><span>Prénom : </span> {{ characterGlobal.firstname }}</p>
+                    <p><span>Age : </span> {{ characterGlobal.age }} ans</p>
+                </div>
+            </div>
+            <div class="informations">
+                <div class="personnageInformations">
+                    <h3>Mon personnage</h3>
+                    <div class="informationsContainer">
+                        <ul>
+                            <li>
+                                <span class="job">Métier : </span>
+    
+                                <div>
+                                    {% if characterGlobal.job is not null %}
+                                        <a href="{{ path('jeu_work_visit', {id: characterGlobal.id}) }}">{{ characterGlobal.job.name }}
+                                        </a>
+                                    {% endif %}
+                                </div>
+                            </li>
+    
+                            <li>
+                                <span class="money">Argent : </span>
+                                <div>{{ characterGlobal.money }} €</div>
+                            </li>
+    
+                            <li>
+                                <span class="diamond">Diamant(s) : </span> 
+                                <div>
+                                    {{ characterGlobal.diamond }}
+                                </div>
+                            </li>
+    
+                            <li>
+                                <span>Visite(s) : </span>
+                                <div>
+                                    {{ characterGlobal.visitor }}
+                                </div>
+                            </li>
+    
+                            <li>
+                                <span>Humeur : </span>
+                                <div>
+                                    ${ Humor }
+                                </div>
+                            </li>
+    
+                            <li>
+                                <span>Situation familiale: </span>
+                                <div>
+                                    ${ relationStatus }
+                                </div>
+                            </li>
+    
+                            <li>
+                                <span>Enfant(s) :</span>
+                                <div>
+                                    {{ characterGlobal.childrens|length }}
+                                </div>
+                            </li>
+    
+                            <li>
+                                <span>Bisous : </span> 
+                                <div>
+                                    {{ characterGlobal.kisses }}
+                                </div>
+                            </li>
+    
+                            <li>
+                                <span>Coup de poing : </span>
+                                <div>
+                                    {{ characterGlobal.punchs }}
+                                </div>
+                            </li>
+    
+                            <li>
+                                <span>Calin : </span>
+                                <div>
+                                    {{ characterGlobal.hugs }}
+                                </div>
+                            </li>
+    
+                            <li>
+                                <span>Pincement : </span>
+                                <div>
+                                    {{ characterGlobal.pinchs }}
+                                </div>
+                            </li>
+    
+                            <li>
+                                <span>Sourire : </span>
+                                <div>
+                                    {{ characterGlobal.smiles }}
+                                </div>
+                            </li>
+    
+                            <li><span>Cheveux tirés : </span>
+                                <div>
+                                    {{ characterGlobal.pulledHair }}
+                                </div>
+                            </li>
+                        </ul>
+    
+                        <div class="select">
+                            <select @change="changeHumor" name="humor" id="humor">
+                                <option value="1">--Choisi ton humeur--</option>     
+                                {% for humor in humorList %}                           
+                                    <option value="{{ humor.id }}">{{ humor.name }}</option>
+                                {% endfor %}
+                            </select>
+    
+                            <select @change="changeRelationStatus" name="relationStatus" id="relationStatus">
+                                <option value="1">--Choisi ta situation--</option>     
+                                {% for relationStatus in relationStatusList %}                           
+                                    <option value="{{ relationStatus.id }}">{{ relationStatus.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="others">
+                    <div class="contact">
+                        <h3>Mes contacts ({{ friendList|length }})
+                            {% if friendRequestCount > 0 %}
+                                <span class="leftSideLink--counter  hasNotificationFriendRequest">{{ friendRequestCount }}</span>
+                            {% endif %}
+                        </h3>
+                        <ul>
+                            {% for friend in friendList %}
+                                {% if friend.status == 1 %}
+                                    <li>
+                                        {% if characterGlobal.id != friend.receiver.id %}
+                                            <a class="{% if friend.receiver.sexe == "homme" %} homme {% elseif friend.receiver.sexe == "femme" %} femme {% endif %}" href="{{ path('profil_visit', {id: friend.receiver.id }) }}"> {{ friend.receiver.firstname }} - {{ friend.receiver.lastname }}, {{ friend.receiver.age}} ans  </a>     
+                                        {% else %}
+                                            <a class="{% if friend.send.sexe == "homme" %} homme {% elseif friend.send.sexe == "femme" %} femme {% endif %}" href="{{ path('profil_visit', {id: friend.send.id }) }}"> {{ friend.send.firstname }} - {{ friend.send.lastname }}, {{ friend.send.age}} ans  </a>
+                                        {% endif %}
+                                    </li>
+                                {% endif %}
+                                {% if friend.status == 0 and friend.receiver.id == characterGlobal.id %}
+            
+                                {% if characterGlobal.id != friend.receiver.id %}
+                                        <a class="{% if friend.receiver.sexe == "homme" %} homme {% elseif friend.receiver.sexe == "femme" %} femme {% endif %}" href="{{ path('profil_visit', {id: friend.receiver.id }) }}"> {{ friend.receiver.firstname }} - {{ friend.receiver.lastname }}, {{ friend.receiver.age}} ans  </a>     
+                                    {% else %}
+                                        <a class="{% if friend.send.sexe == "homme" %} homme {% elseif friend.send.sexe == "femme" %} femme {% endif %}" href="{{ path('profil_visit', {id: friend.send.id }) }}"> {{ friend.send.firstname }} - {{ friend.send.lastname }}, {{ friend.send.age}} ans  </a>
+                                    {% endif %}
+            
+                                    <a href="{{ path('jeu_profil_acceptFriend', {userId: characterGlobal.id , id: friend.id }) }}" class="link">Accepter</a> - 
+                                    <a href="{{ path('jeu_profil_denyFriend', {userId: characterGlobal.id , id: friend.id }) }}" class="link">Refuser</a>
+                                {% endif %} 
+                                
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="musicProfil">
+                        <h3>Ma musique de profil</h3>
+                        <form action="{{ path('jeu_profil_editMusic') }}" method="POST">
+                            <p>Ecoute uniquement sur le profil en mode visite</p>
+                            <label for="musicProfilLink">Lien youtube :</label>
+                            <input type="text" name="musicProfilLink" id="musicProfilLink">
+                            <button type="submit">Modifier</button>
+                        </form>
+                        <p class="note">Format :<strong> https://www.youtube.com/watch?v=GbUV3TXUzeQ</strong></p>
+                        <p class="note">Valide à vide si tu ne veux pas mettre de musique !</p>
+                    </div>
+                    <a class="link toVisitProfil" href="{{ path('profil_visit', {id: characterGlobal.id}) }}">Accèder à mon profil en mode visiteur</a>
+                </div>
+            </div>
+        </section>
+
+        <div class="back back--editor">
+            <h2 class="title">Editer mon profil</h2>
+            <form action="{{ path('jeu_profil_edit') }}" method="post">
+                <textarea name="content" id="content">{% if characterGlobal.profils is not null  %}{{ characterGlobal.profils.content|raw }}{% endif %}</textarea>
+                <button type="submit">Modifier</button>
+            </form>
+
+        </div>
+
+        <section class="profil">
+            <div class="back back--comments">
+                <h2 class="title">Mes commentaires validés</h2>
+                {% for comment in commentsList %}
+                    {% if comment.status == 1 %}
+                        <div class="comment">
+                            <div class="commentTitle">                                
+                                <p class="sendBy">Commentaire envoyé par :<a href="{{ path('profil_visit', {id: comment.sendId}) }}">{{ comment.sendName }}</a></p>
+                                <form class="validComment" action="{{ path("jeu_profil_deleteComment", {id: comment.id}) }}" method="POST"><button class="validComment" type="submit">Supprimer le commentaire</button></form>
+                            </div>
+                            {{ comment.content|raw }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+
+                <div class="paginator">
+                    {{ knp_pagination_render(commentsList) }}
+                </div>
+            </div>
+
+            <div class="back back--comments comments--waiting">
+                <h2 class="title">Mes commentaires en attentes</h2>
+                {% for comment in waitingComments %}
+                    <div class="comment">
+                        <div class="commentTitle">
+                            <p>Commentaire envoyé par :<a href="{{ path('profil_visit', {id: comment.sendId}) }}">{{ comment.sendName }}</a></p>
+                            <form action="{{ path("jeu_profil_acceptComment", {id: comment.id}) }}" method="POST"><button class="validComment" type="submit">Valider le commentaire</button></form>
+                            <form action="{{ path("jeu_profil_denyComment", {id: comment.id}) }}" method="POST"><button class="validComment" type="submit">Refuser le commentaire</button></form>
+                        </div>
+                        {{ comment.content|raw }}
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}

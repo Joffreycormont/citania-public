@@ -1,0 +1,36 @@
+{% extends 'baseIngame.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("assets/css/town.css") }}">
+{% endblock %}
+
+{% block title %}Citania - Centre ville{% endblock %}
+
+{% block body %}
+
+    {% include "template/alert.html.twig" %}
+
+    <div class="ban banTown">
+        <img src="{{ asset("assets/Images/townBan.png") }}" alt="bannière centre ville">
+        <h2 class="pageTitleInGame--town">Centre ville</h2>
+    </div>
+
+    <section class="back back--newAd">
+        <h2 class="title">Ajouter une annonce</h2>
+        <div class="messageContainer">
+            <img class="logoPolitique" src="{{ asset("assets/Images/annonce.jpg") }}" alt="image assemblé nationale">
+            <p class="message">L'ajout d'une annonce vous coûtera <strong>5</strong> <img style="width: 20px;" src="{{ asset("assets/Images/diamond.png") }}" alt="image diamant"> diamants.</p>
+        </div>
+
+        <form action="{{ path('jeu_town_new_advertising')}}" method="post">
+            <label for="title">Titre de votre annonce</label>
+            <input type="text" name="title" id="title" placeholder="titre de l'annonce">
+
+            <textarea name="content" id="content"></textarea>
+            <button type="submit">Envoyer</button>
+        </form>
+    </section>
+
+    <a class="link backLink" href="{{ path('jeu_town') }}">Retour au centre ville</a>
+
+{% endblock %}

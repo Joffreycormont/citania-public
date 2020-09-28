@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="refresh" content="910" />
+
+        <title>{% block title %}Welcome!{% endblock %}</title>
+
+        <link rel="stylesheet" href="{{ asset("assets/css/style.css") }}">
+        <link rel="stylesheet" href="{{ asset("assets/css/game.css") }}">
+        <link rel="icon" type="image/png" href="{{ asset("assets/Images/citania logo.png") }}" />
+        <link rel="stylesheet" href="{{ asset("assets/css/responsive.css") }}">
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+        {% if app.request.get('_route') == 'jeu_town' %}
+            <link rel="stylesheet" type="text/css" href="../slick/slick.css"/>
+            <link rel="stylesheet" type="text/css" href="../slick/slick-theme.css"/>
+        {% endif %}
+
+        {% block stylesheets %}{% endblock %}
+        <script src="https://kit.fontawesome.com/70eea82f62.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.tiny.cloud/1/yopi7z0wu8x5ozppfngqhnk09ikgk629qkia1dx3mupuxbsz/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+        <script
+        src="https://code.jquery.com/jquery-3.5.0.min.js"
+        integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ="
+        crossorigin="anonymous"></script>
+
+        <div class="tinyAssetData" data-tiny="{{ app.request.scheme ~'://' ~ app.request.httpHost ~ asset('assets/tinyLang/fr_FR.js') }}"></div>
+        <script defer>
+        let tinyAssetData = $('.tinyAssetData').data('tiny');
+        
+        tinymce.init({   selector: 'textarea',
+            language_url: tinyAssetData,
+            language: 'fr_FR',
+            width: '100%',
+            height: '400px',
+            entity_encoding: 'raw',
+            paste_auto_cleanup_on_paste: true,
+            //premium plugins tiny : a11ychecker advcode casechange formatpainter linkchecker linkchecker checklist mediaembed pageembed permanentpen powerpaste advtable tinycomments
+            plugins: ' link image lists media table tinydrive',
+            toolbar: 'a11ycheck casechange checklist code pageembed table link image',
+            toolbar_drawer: 'floating',
+            tinycomments_mode: 'embedded',
+            tinycomments_author: 'Author name',
+            });
+        </script>
+    </head>
+    <body>
+        {% set commentCount = GlobalVariablesTwig.commentsList() %}
+        {% set characterGlobal = GlobalVariablesTwig.charactersInfo() %}
+        {% set messagesCount = GlobalVariablesTwig.messagesList() %}
+        {% set friendRequestCount = GlobalVariablesTwig.friendRequestList() %}
+        {% set logbookCount = GlobalVariablesTwig.eventList() %}
+        {% set jobNotification = GlobalVariablesTwig.jobNotification() %}
+        <div id="app">
+            <div v-if="menuModal">
+                <div class="handleMenuModalWithoutButton" @click="switchMenuModal"></div>
+            </div>
+            <header class="header">
+
+                <div @click="switchMenuModal" class="menuBurgerButton
+                {% if jobNotification > 0 or commentCount > 0 or  friendRequestCount > 0 or messagesCount > 0 %} 
+                    hasNotification
+                {% endif %}
+                ">
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                </div>
+
+                <transition name="fade">
+                    <div v-if="menuModal" class="PhoneMenu modalClosed">
+                        {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
+                            <a class="menuPhoneLink leftSideLink--admin" href="{{ path('admin_panel_userList', {'_switch_user': '_exit'}) }}">Retour admin</a>
+                        {% endif %}
+                        <a class="menuPhoneLink leftSideLink--news" href="{{ path('jeu_news') }}#news" title="Liste des news">Nouveautés</a>
+                        <a class="menuPhoneLink leftSideLink--guide" href="{{ path('jeu_help') }}" title="Guide du jeu">Guide du jeu</a>
+                        <a class="menuPhoneLink leftSideLink--discord" href="https://discord.gg/6k3fPWb" target="_blank" title="Nouvel onglet - vers le discord de citania"><img class="menuPhoneLink--img leftSideLink--img_discord" src="{{ asset("assets/Images/logodiscord.png") }}" alt="logo discord"></a>
+                        <a class="menuPhoneLink" href="{{ path('jeu_house') }}" title="Ma maison">Ma Maison</a>
+                        <a title="{{ commentCount }} commentaire(s) en attente(s)" class="menuPhoneLink 
+                        {% if commentCount > 0 or friendRequestCount > 0 %} 
+                            hasNotificationPhone 
+                        {% endif %} 
+                        " href="{{ path('jeu_profil') }}">
+
+                        {% if commentCount > 0 %}
+                            <span class="leftSideLink--counter"> {{ commentCount }}</span>
+                        {% elseif friendRequestCount > 0 %}
+                            <span class="leftSideLink--counter"> {{ friendRequestCount }}</span>
+                        {% endif %}
+
+                        Mon profil</a>
+
+                        <a class="menuPhoneLink 
+                        {% if messagesCount > 0 %} 
+                            hasNotificationPhone
+                        {% endif %} 
+                        " href="{{ path('jeu_messages') }}" title="Ma messagerie">{% if messagesCount > 0 %} <span class="leftSideLink--counter">{{ messagesCount }}</span>{% endif %}Messagerie</a>
+
+                        <a class="menuPhoneLink" href="{{ path('jeu_studies') }}" title="Mon boulot">Mes études</a>
+
+                        <a class="menuPhoneLink 
+                        {% if jobNotification > 0 %} 
+                            hasNotificationPhone 
+                        {% endif %}
+                        " href="{{ path('jeu_work') }}" title="Mon boulot">Mon boulot</a>
+                        <a class="menuPhoneLink leftSideLink--premium" href="{{ path('jeu_premium') }}" title="Premium - achat de diamant">Premium</a>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a class="menuPhoneLink leftSideLink--admin" href="{{ path('admin_panel') }}" title="Panel d'administration">Administration</a>
+                        {% endif %}
+                    </div>
+                </transition>
+
+                <div class="topInfoBar">
+                    <p><connected-Count></connected-Count> Joueur(s) connecté(s)</p>
+                    <div>
+                        <p><strong>Date :</strong></p>
+                        <date></date>
+                    </div>
+                    <div>
+                        <p><strong>Prénom :</strong> {{ characterGlobal.firstname }}</p>
+                        <p><strong>Nom :</strong> {{ characterGlobal.lastname }}</p>
+                    </div>
+                    <a href="{{ path('personnal_account') }}">Mon compte <span><img class="accountLogo" src="{{ asset("assets/Images/account.png") }}" alt=""></span></a>
+                </div>
+
+                <div class="logoContainer">
+                   <a href="{{ path('jeu_news') }}"><img class="mainLogo mainLogo--ingame" src="{{ asset("assets/Images/citania logo.png") }}" alt="logo citania" title="Logo Citania"></a>
+                </div>
+
+                <div class="headerContainer headerContainer--right">
+                    <a class="decoLink" href="{{ path('self_deconnexion') }}">Déconnexion<span><img src="{{ asset("assets/Images/deconnexion.png") }}" alt=""></span></a>
+                </div>
+
+                <nav class="mainNavigation">
+                    <ol>
+                        <li><a href="{{ path('jeu_map') }}"><img src="{{ asset("assets/Images/map.png") }}" alt="plan de la ville" title="plan de la ville"></a></li>
+                        <li><a href="{{ path('jeu_town') }}"><img class="center" src="{{ asset("assets/Images/centre ville logo.png") }}" alt="centre ville" title="centre ville"></a></li>
+                        <li class="logbook"><a href="{{ path('jeu_logBook') }}"><img src="{{ asset("assets/Images/Journal de bord.png") }}" alt="journal de bord" title="journal de bord"></a>
+                            {% if logbookCount > 0 %}
+                                <span class="logbookCount hasEvent">{{ logbookCount }}</span>
+                            {% endif %}
+                        </li>
+                    </ol>
+                </nav>
+        
+            </header>
+
+            <infinite-slide-text></infinite-slide-text>
+
+            <main>
+                <div class="container--leftSideLink{% if messagesCount > 0 %} hasMessages{% endif %}{% if messagesCount > 10 %} hasMoreMessages{% endif %}">
+                    {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
+                        <a class="leftSideLink leftSideLink--admin" href="{{ path('admin_panel_userList', {'_switch_user': '_exit'}) }}">Retour admin</a>
+                    {% endif %}
+                    <a class="leftSideLink leftSideLink--news
+                    {% if characterGlobal.newsReaded == 0 %}
+                        hasNotification
+                    {% endif %}
+                    " href="{{ path('jeu_news') }}#news" title="Liste des news">Nouveautés</a>
+                    <a class="leftSideLink leftSideLink--guide" href="{{ path('jeu_help') }}" title="Guide du jeu">Guide du jeu</a>
+                    <a class="leftSideLink leftSideLink--discord" href="https://discord.gg/6k3fPWb" target="_blank" title="Nouvel onglet - vers le discord de citania"><img class="leftSideLink--img leftSideLink--img_discord" src="{{ asset("assets/Images/logodiscord.png") }}" alt="logo discord"></a>
+                    <br>
+                    <a class="leftSideLink" href="{{ path('jeu_house') }}" title="Ma maison">Ma Maison</a>
+                    <a title="{{ commentCount }} commentaire(s) en attente(s)" class="leftSideLink 
+                    {% if commentCount > 0 or friendRequestCount > 0 %} 
+                        hasNotification 
+                    {% endif %} 
+                    " href="{{ path('jeu_profil') }}">
+
+                    {% if commentCount > 0 %}
+                        <span class="leftSideLink--counter"> {{ commentCount }}</span>
+                    {% elseif friendRequestCount > 0 %}
+                        <span class="leftSideLink--counter"> {{ friendRequestCount }}</span>
+                    {% endif %}
+
+                    Mon profil</a>
+
+                    <a class="leftSideLink 
+                    {% if messagesCount > 0 %} 
+                        hasNotification 
+                    {% endif %} 
+                    " href="{{ path('jeu_messages') }}" title="Ma messagerie"><img class="leftSideLink--img" src="{{ asset("assets/Images/mail.png") }}" alt="image enveloppe">{% if messagesCount > 0 %} <span class="leftSideLink--counter">{{ messagesCount }}</span>{% endif %}Messagerie</a>
+                    
+                    <a class="leftSideLink" href="{{ path('jeu_studies') }}" title="Mon boulot">Mes études</a>
+
+                    <a class="leftSideLink 
+                    {% if jobNotification > 0 %} 
+                        hasNotification 
+                    {% endif %}
+                    " href="{{ path('jeu_work') }}" title="Mon boulot">Mon boulot</a>
+                    <br>
+                    <a class="leftSideLink leftSideLink--premium" href="{{ path('jeu_premium') }}" title="Premium - achat de diamant"><img class="leftSideLink--img" src="{{ asset("assets/Images/diamantlogo.png") }}" alt="image diamant et premium">Premium</a>
+                    <br>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a class="leftSideLink leftSideLink--admin" href="{{ path('admin_panel') }}" title="Panel d'administration">Administration</a>
+                    {% endif %}
+                </div>
+                {% if characterGlobal.die == 0 %}
+                    {% block body %}{% endblock %}
+                {% else %}
+                    Tu est mort
+                {% endif %}
+            </main>
+
+            {% include 'template/footer.html.twig' %}
+        
+        </div>
+        {{ encore_entry_script_tags("app") }}
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js"></script>
+        <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+        <script>
+            AOS.init();
+        </script>
+        
+        <script type="text/javascript" src="../slick/slick.min.js"></script>
+
+        {% if app.request.get('_route') == 'jeu_town' %}
+                <script>
+                    if($('.carousel')){
+                        $('.carousel').slick({
+                            slidesToShow: 3,
+                            slidesToScroll: 1,
+                            autoplay: true,
+                            autoplaySpeed: 3500,
+                            arrows: false,
+                            responsive: [{
+
+                                breakpoint: 1024,
+                                settings: {
+                                slidesToShow: 2,
+                                infinite: true
+                                }
+
+                                }, {
+
+                                breakpoint: 600,
+                                settings: {
+                                slidesToShow: 1,
+                                dots: false
+                                }
+
+                                }, {
+
+                                breakpoint: 300,
+                                settings: "unslick" // destroys slick
+
+                                }]
+                            });
+                    }   
+                </script>
+        {% endif %}
+
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

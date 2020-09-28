@@ -1,0 +1,121 @@
+.banMap{
+    position: relative;
+    width: 100%;
+    background-color: #e7e7e7;
+    border-radius: 40px;
+    margin-top: -1.5em;
+    height: 180px;
+    padding: 0 1.5em;
+    background-image: url('../Images/citymap.jpg');
+    background-size: 100%;
+    background-repeat: no-repeat
+}
+
+.banMap img{
+    display: block;
+    margin: 0 auto;
+    padding-top: 1.5em;
+    width: 350px;
+}
+
+h2.pageTitleInGame--map{
+    background-color: #d0a377;
+    color: white;
+    width: fit-content;
+    padding: .5em;
+    border-radius: 30px;
+    position: absolute;
+    bottom: -.7em;
+}
+
+.mapContainer{
+    margin: 3.5em;
+    padding: 2.5em;
+    border-radius: 60px;
+    border-top: 2em solid #d0a377;
+    border-bottom: 2em solid #d0a377;
+    background-color: white;
+}
+
+.mapLinks img{
+    width: 200px;
+    transition: .4s;
+}
+
+.mapLinks ol {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    justify-content: center;
+}
+
+.mapLinks li a{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mapLinks li a:hover  img{
+    transform: scale(1.05);
+}
+
+.mapLinks li a span{
+    border-radius: 60px;
+    background-color: lightgray;
+    padding: .5em 1.5em;
+    margin: .5em;
+    color: white;
+}
+
+
+.mapLinks li a span.mapLinks--maison{
+    background-color: #a63d27;   
+}
+
+.mapLinks li a span.mapLinks--travail{
+    background-color: #3e525d;   
+}
+
+.mapLinks li a span.mapLinks--mairie{
+    background-color: #e3d058;   
+}
+
+.mapLinks li a span.mapLinks--police{
+    background-color: #3a486b;   
+}
+
+.mapLinks li a span.mapLinks--tribunal{
+    background-color: #a0a4a5;   
+}
+
+.mapLinks li a span.mapLinks--politique{
+    background-color: #7fcdd9;   
+}
+
+.mapLinks li a span.mapLinks--emploi{
+    background-color: #c99776;   
+}
+
+.mapLinks li a span.mapLinks--etude{
+    background-color: #46252e;   
+}
+
+.mapLinks li a span.mapLinks--commerce{
+    background-color: #e6c798;   
+}
+
+.mapLinks li a span.mapLinks--banque{
+    background-color: #97714c;   
+}
+
+.mapLinks li a span.mapLinks--hopital{
+    background-color: #e04938;   
+}
+
+.mapLinks li a span.mapLinks--casino{
+    background-color: #39b44a;   
+}
+
+.mapLinks li a span.mapLinks--prison{
+    background-color: #282627;   
+}

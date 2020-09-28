@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Citania - Ressource non trouvée{% endblock %}</title>
+    <link rel="stylesheet" href="{{ asset("assets/css/style.css") }}">
+    <link rel="icon" type="image/png" href="{{ asset("assets/Images/citania logo.png") }}" />
+    {% block stylesheets %}{% endblock %}
+    <link rel="stylesheet" href="{{ asset("assets/css/responsive.css") }}">
+</head>
+<body>  
+    <main>
+        <div style="text-align: center;">
+            <img style="width: 400px; margin-top: 2em;" src="{{ asset("assets/Images/citania logo.png") }}" alt="logo citania">
+            <h3 class="errorResponse" style="font-size: 2em; margin: 2em auto;">Site en maintenance</h3>
+            <h4 class="errorPage">Raisons de la maintenance :</h4>
+            <ul class="">
+                <li>- le contenu concerné n'existe plus</li>
+                <li>- le contenu concerné n'a jamais existé</li>
+            </ul>
+        </div>
+    </main> 
+    <footer>
+        <div class="footer-content">
+            <div>
+                <img class="footerLogo" src="{{ asset("assets/Images/citania logo.png") }}" alt="logo citania" title="Logo Citania">
+            </div>
+            <section class="aboutUs">
+                <h4>A propos</h4>
+                <ul>
+                    <li><a href="{{ path('CGU') }}">Conditions d'utilisation</a></li>
+                    <li><a href="{{ path('contact') }}">Nous contacter</a></li>
+                </ul>
+            </section>
+            <br>
+            <section class="socialLinks">
+                <h4>Retrouvez <strong>Citania</strong> sur les réseaux</h4>
+                <ul>
+                    <li><a href="">Twitter</a></li>
+                    <li><a href="">Facebook</a></li>
+                    <li><a href="">Discord</a></li>
+                </ul>
+            </section>
+        </div>
+        <p><strong>Citania</strong> 2019 © Tout droits réservés</p>
+    </footer>
+</body>
+</html>
+
+
+
+

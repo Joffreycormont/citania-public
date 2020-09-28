@@ -1,0 +1,128 @@
+{% extends 'baseIngame.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("assets/css/casino.css") }}">
+{% endblock %}
+
+{% block title %}Citania - Casino{% endblock %}
+
+{% block body %}
+    {% include "template/alert.html.twig" %}
+
+    <div class="bancasino">
+        <img src="{{ asset('assets/Images/bancasino.png') }}" alt="bannière casino citania">
+        <a href="#games">jouer</a>
+    </div>
+
+    <section class="playerInformations">
+        <div class="stats">
+            <p>
+                Mon argent <br>
+                <span>{{ characterGlobal.money }} €</span>
+            </p>
+
+            <p>
+                Mes diamants <br>
+                <span>{{ characterGlobal.diamond }}</span><br>
+                <a class="buyDiamond" href="{{ path('jeu_premium') }}">Acheter des diamants</a>
+            </p>
+
+            <p>
+                Mes jetons<br>
+                <span>{{ characterGlobal.casinoCoins }}</span>
+            </p>
+            <p>
+                Parties jouées <br>
+                <span>{{ characterGlobal.casinoGamePlayed }}</span>
+            </p>
+        </div>
+
+        <button @click="toggleBuyCoin">Acheter des jetons</button>
+    </section>
+
+    <transition name="fade">
+        <section v-if="toggleBuyCoins" class="buyCoins">
+            <form action="{{ path('jeu_casino_buyCoins') }}" method="POST">
+                <p> <strong>Achat de jeton </strong>:</p>
+                <div>
+                    <label for="mode">Mode</label>
+                    <select name="mode" id="mode">
+                        <option value="">Choisir le mode d'achat</option>
+                        <option value="withMoney">1 jeton pour 1 €</option>
+                        <option value="withDiamond">50 jetons pour 1 diamant</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="toCoinQuantity">Quantité (diamant / argent)</label>
+                    <input type="number" name="toCoinQuantity" id="toCoinQuantity" min="0" max="10000" placeholder="....">
+                </div>
+                <button>Acheter</button>
+            </form>
+
+            <form action="{{ path('jeu_casino_changeCoins') }}" method="POST">
+                <p><strong>Change en argent </strong>:</p>
+                <div>
+                    <label for="toEuroQuantityCoin">Quantité de jeton à changer</label>
+                    <input type="number" name="toEuroQuantityCoin" id="toEuroQuantityCoin" min="0" placeholder="....">
+                </div>
+                <button>Changer</button>
+            </form>
+        </section>
+    </transition>
+
+    <div class="padding">
+        <section id="games" class="games-container">
+            <h2>Nos jeux</h2>
+            <div class="games">
+                <div class="card-game">
+                    <a href="{{ path('jeu_casino_blackjack') }}">
+                        <img src="{{ asset('assets/Images/casino/blackJack.png') }}" alt="image blackjack">
+                    </a>
+                </div>
+                <div class="card-game">
+                    <a href="{{ path('jeu_casino_blackjack') }}">
+                        <img src="{{ asset('assets/Images/casino/blackJack.png') }}" alt="image blackjack">
+                    </a>
+                </div>
+                <div class="card-game">
+                    <a href="{{ path('jeu_casino_blackjack') }}">
+                        <img src="{{ asset('assets/Images/casino/blackJack.png') }}" alt="image blackjack">
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="leaderboard">
+            <h2>Leaderboard (Top 30)</h2>
+
+            <div class="leaderbordLists">
+                <ul>
+                    {% for key,player in leaderboard %}
+                        <li class="player" data-aos="fade-down" data-aos-duration="1000">
+                            {% if (key + 1) == 1 %}
+                                <img width="45px" src="{{ asset('assets/Images/goldMedal.png') }}" alt="médaille d'or">
+                            {% elseif (key + 1) == 2 %}
+                                <img width="45px" src="{{ asset('assets/Images/silverMedal.png') }}" alt="médaille d'or">
+                            {% elseif (key + 1) == 3 %}
+                                <img width="45px" src="{{ asset('assets/Images/bronzeMedal.png') }}" alt="médaille d'or">                                
+                            {% endif %} 
+                            <span>{{ key + 1 }}</span>
+                            <a href="{{ path('profil_visit', {id: player.id}) }}">{{ player.firstname }} - {{ player.lastname }}</a> - {{ player.casinoGamePlayed }} parties joueés - {{ player.casinoCoins }} jetons
+                        </li>    
+                    {% endfor %}
+                </ul>
+
+                <ul>
+                    {% for key,player in leaderboardP2 %}
+                        <li class="player" data-aos="fade-down" data-aos-duration="1000">
+                            <span>{{ key + 1 + 15 }}</span>
+                            <a href="{{ path('profil_visit', {id: player.id}) }}">{{ player.firstname }} - {{ player.lastname }}</a> - {{ player.casinoGamePlayed }} parties joueés - {{ player.casinoCoins }} jetons
+                        </li>    
+                    {% endfor %}
+                </ul>
+            </div>
+        </section>
+        
+        <a class="link backLink" href="{{ path('jeu_town') }}">Retour au plan de la ville</a>
+    </div>
+{% endblock %}

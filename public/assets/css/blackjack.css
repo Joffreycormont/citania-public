@@ -1,0 +1,148 @@
+.deckContainer{
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	z-index: 9;
+}
+
+.errors{
+	margin: .5em auto;
+	position: relative;
+	z-index: 10;
+}
+
+.errors p{
+	color: #964949 !important;
+	padding: 1em 1.5em;
+	border-radius: 5px;
+	border: 1px solid #964949;
+}
+
+.back--blackjack{
+	width: 85%;
+	padding: .5em;
+}
+
+.back--blackjack .buttons{
+	display: flex;
+	justify-content: center;
+	text-align: center;
+	background-color: rgb(236, 236, 236);
+	padding: .5em;
+	border-radius: 10px;
+}
+
+.back--blackjack img{
+	width: 100%;
+	border-radius: 20px;
+}
+
+.backgroundContainer{
+	margin: 0 auto;
+	position: relative;
+}
+
+
+.back--blackjack .buttons button, .back--blackjack button{
+	background-color: #8ed077;
+	color: white;
+	padding: .5em 1em;
+	border: none;
+	border-radius: 5px;
+}
+
+.backgroundContainer button{
+	position: absolute;
+	margin: auto;
+	left: 0;
+	right: 0;
+	bottom: 50px;
+}
+
+div.buttons{
+	margin: 1em 0;
+	width: 100%;
+	display: flex;
+	justify-content: space-between
+}
+
+div.buttons input{
+	padding: .5em 1em;
+	border-radius: 10px;
+	border: none;
+	background-color: unset;
+	border-bottom: 2px solid #8ed077;
+	margin: 0 .3em;
+}
+
+.fadeUp-enter-active, .fadeUp-leave-active {
+	transition: all .3s;
+}
+
+.fadeUp-enter, .fadeUp-leave-active{
+	opacity: 0;
+	transform: translateY(50px);
+}
+
+form button:hover{
+	color: white !important;
+}
+
+.bankHandContainer, .playerHandContainer{
+	border-radius: 10px;
+	background-color: RGBA(255,255,255,0.91);
+	padding: 1em;
+	width: 80%;
+	margin: 2em auto;
+}
+
+.bankHandContainer .cardContainer, .playerHandContainer .cardContainer{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.bankHandContainer .cardContainer{
+	flex-direction: row-reverse;
+}
+
+.bankHandContainer .cardContainer img, .playerHandContainer .cardContainer img {
+	width: 80px;
+	border: 1px solid rgb(224, 224, 224);
+	margin: .4em;
+	border-radius: 5px;
+}
+
+
+.bankHandContainer p, .playerHandContainer p{
+	padding: .3em;
+	color: rgb(34, 34, 34);
+	border-bottom: 1px solid #8ed077;
+	text-align: center;
+}
+
+.hidden{
+	display: none;
+}
+
+.coins span{
+    color: rgb(196, 168, 44);
+}
+
+.rules h3{
+	margin: 1.2em 0;
+	font-size: 1.2em;
+}
+
+.rules li{
+	color: rgb(179, 172, 172) !important;
+}
+
+
+
+

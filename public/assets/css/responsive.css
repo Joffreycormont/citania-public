@@ -1,0 +1,887 @@
+@media screen and (max-width: 1850px) {
+    .back--searchPanel{
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .annonceLogo{
+        border: none;
+        margin: 3em 0;
+    }
+
+    div.objectContainer{
+        padding: .2em;
+    }
+    
+    .askContainer a{
+        display: block !important;
+    }
+}
+
+
+@media screen and (max-width: 1605px) {
+    .back--blackjack .bankHandContainer, .back--blackjack .playerHandContainer{
+        margin: 1em auto;
+    }
+
+    .back--houseModal{
+        height: 300px !important;
+    }
+
+    .characterObjects{
+        width: 25% !important;
+    }
+
+    .back--searchPanel{
+        flex-direction: column !important;
+    }
+
+    .adContainer{
+        width: 100% !important;
+    }
+
+    .annonceLogo{
+        border: none !important;
+    }
+
+    .musicProfil p{
+        word-break: break-all;
+    }
+
+    .personnageInformations .select{
+        flex-direction: column;
+    }
+
+    .profilInformations{
+        flex-direction: column;
+    }
+
+    .personnage{
+        width: 100% !important;
+    }
+
+    .profilInformations .informations{
+        width: 100%;
+    }
+
+    .user{
+        width: 40%;
+        margin-bottom: 1.5em;
+    }
+    /* Page d'accueil Header */
+    .mainLogo{
+        margin-top: 7.5em;
+    }
+
+    .mainLogo--ingame{
+        margin-left: 0em;
+    }
+
+    .menuBurgerButton{
+        display: flex;
+    }
+
+    .container--leftSideLink{
+        display: none;
+    }
+
+    .leftSideLink{
+        border-radius: 60px;
+    }
+    
+    .banMap, .banlogBook, .banTown{
+        margin-top: 1.5em;
+    }
+
+    .banTown{
+        background-position-y: -120px;
+    }
+
+    .messageContainer{
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .logoPolitique{
+        border: none;
+    }
+
+    .ad{
+        width: 45%;
+    }
+    
+    /* FIN Page d'accueil Header */
+
+    .product_card{
+        width: 44% !important;
+    }
+
+    .stampContainer{
+        flex-direction: column;
+    }
+
+    .back--stamp-stock, .back--command-stamp{
+        width: 85%;
+    }
+  }
+
+  @media screen and (max-width: 1450px) {
+    .back--houseModal{
+        height: 300px;
+    }
+
+    .playerInformations{
+        flex-direction: column;
+    }
+
+    .playerInformations .stats{
+        width: 100% !important;
+        margin: .5em 0;
+    }
+  }
+
+  @media screen and (max-width: 1380px) {
+
+    .back--blackjack .deckContainer{
+        flex-direction: row;
+    }
+
+    .back--blackjack .bankHandContainer, .back--blackjack .playerHandContainer{
+        margin: 1em;
+    }
+
+
+    .underProfil{
+        flex-direction: column;
+    }
+  }
+
+
+  @media screen and (max-width: 1200px) {
+
+    .leaderbordLists{
+        flex-direction: column;
+    }
+
+    .leaderbordLists ul {
+        width: 100% !important;
+    }
+
+    .card{
+        width: 100%;
+    }
+
+    .headerVag{
+        display: none;
+    }  
+
+    .loginForm{
+        padding: 5em 3em;
+    }
+
+      /* Page d'accueil Header */
+    .mainLogo{
+        margin-left: 3em;
+    }
+
+    .mainLogo--ingame{
+        margin-left: 0;
+    }
+    /* FIN Page d'accueil Header */
+
+    /*profil*/
+    main{
+        width: 100%;
+    }
+
+    .personnage{
+        flex-direction: column;
+    }
+
+    .back--mapPages{
+        width: 45%;
+    }
+
+    .back, .back--characterInfos{
+        width: 90%;
+        margin: 3em auto;
+    }
+
+    .closeWindow{
+        width: 250px;
+    }
+
+    .comment{
+        overflow: scroll;
+    }
+
+    .commentTitle{
+        width: 140%;
+    }
+
+    .back{
+        margin: 8em auto;
+    }
+
+    
+    /* action modal */ 
+
+    .actionModal{
+        width: 85%;
+    }
+
+    .actionContainer ul{
+        flex-direction: row;
+    }
+
+    .actionContainer li{
+        width: 30%;
+    }
+
+    .accountContainer{
+        flex-direction: column;
+    }
+
+    .accountInfos{
+        width: 100%;
+    }
+
+    .accountContainer section{
+        align-self: unset;
+    }
+
+    /* house*/
+
+    .frigo{
+        right: 8%;
+    }
+
+    .etagere{
+        left: 8%
+    }
+
+    .back--houseModal{
+        width: 93%;
+        margin-bottom: 0;
+    }
+
+    .back--contact{
+        margin-top: 25em;
+    }
+
+    .back--password{
+        margin-top: 18em;
+    }
+
+    .characterObjects{
+        width: 42%;
+    }
+
+  }
+
+
+  @media screen and (max-width: 1100px) {
+    .bankHandContainer .cardContainer img, .playerHandContainer .cardContainer img{
+        width: 42px !important;
+    }
+  }
+
+  @media screen and (max-width: 950px) {
+
+    .buyCoins form{
+        flex-direction: column;
+        margin: 2em 0;
+    }
+
+    .games{
+        flex-wrap: wrap;
+    }
+
+    .games .card-game{
+        width: 45%;
+        flex-grow: 1;
+    }
+
+    #bars{
+        display: none !important;
+    }
+
+    .user{
+        width: 75%;
+        margin-bottom: 1.5em;
+    }
+
+    .back--connectedUser div.user{
+        width: 100%;
+    }
+  
+    /* Page d'accueil Header */
+
+    header.homePage{
+        flex-direction: column;
+    }
+
+    .desc{
+        display: none;
+    }
+    .mainLogo{
+        width: 200px;
+        margin-top: 16em;
+        position: relative;
+        top: 80px;
+    }
+
+    .mainLogo--ingame{
+        margin-top: -1em;
+        margin-bottom: 4em;
+    }
+
+    .mainLogo--account{
+        top: -85px
+    }
+
+    .mainLogo--register{
+        top: -50px;
+    }
+
+    .loginForm{
+        margin-top: -24em;
+        width: 100%;
+    }
+    .onlineNumber span{
+        position: absolute;
+    }
+
+    .immArbre{
+        margin-top: 0;
+    }
+
+    .presentation section{
+        width: 90%;
+    }
+    /* FIN Page d'accueil Header */
+
+    .messageContent{
+        overflow: scroll;
+        width: 150%;
+    }
+
+    .alignRight{
+        align-self: unset;
+    }
+
+    .back--password{
+        margin-top: 23em;
+    }
+
+    /* Footer */
+
+    .presentation, .footer-content, .commentTitle, .container--messages, .eventContainer, .headerJob, .mapPagesWelcome, .trashTruckContainer, .back--characterInfos{
+        flex-direction: column !important;
+    }
+
+    .persoInfos{
+        width: 100% !important;
+    }
+
+    .footerLogo{
+        display: none;
+    }
+
+    .socialLinks{
+        margin-top: 2em;
+    }
+
+    footer p {
+        margin-top: 1em;
+    }
+
+    /*FIN Footer*/
+
+    /* profil */
+
+    .profilVisit{
+        overflow: scroll;
+    }
+
+    /*messagerie*/ 
+
+    .container--messages div.back--messageList{
+        width: 85%;
+    }
+
+    .container--messages div.back--friends{
+        width: 80%;
+    }
+
+    /*center*/
+
+    .ad{
+        width: 85%;
+    }
+
+    .actionButton{
+        border-radius: 30px;
+        width: fit-content;
+        margin: 0 auto;
+    }
+
+    .banTown{
+        background-position-y: -70px;
+    }
+
+    /* centerjob*/
+
+    .jobContainer{
+        width: 80%;
+        margin: 1em auto;
+    }
+
+    .back--trashTruck img{
+        width: 200px;
+    }
+
+    .headerJob p{
+        padding: 0;
+    }
+
+    .product_card{
+        width: 100% !important;
+    }
+
+    div.back--houseModal{
+        top: 7em;
+        margin-left: -2em;
+        width: 100%;
+    }
+
+    .card{
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .productContainer img.object{
+        border: none;
+    }
+
+    .loading span{
+        font-size: .6em;
+        padding: .6em;
+    }
+
+    .diplome{
+        width: 450px;
+    }
+
+    #bars{
+        display: none;
+    }
+
+  }
+
+  @media screen and (max-width: 800px) {
+
+    .characterObjects{
+        width: 35% !important;
+    }
+
+    .studyContainer, .profilInformations .informations{
+        flex-direction: column !important;
+    }
+
+    .messageListItem{
+        display: block;
+    }
+
+    .profilInformations .informations div{
+        width: 97%;
+    }
+
+
+  }
+
+  @media screen and (max-width: 650px) {
+
+    .playerInformations .stats, .leaderbordLists li{
+        flex-direction: column;
+    }
+
+    .messageList div{
+        /*pour le metier facteur*/
+        width: 40%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        
+    }
+
+    .messageList div img{
+        align-self: flex-start;
+    }
+
+    .topInfoBar{
+        height: fit-content;
+        flex-direction: column;
+    }
+
+    .back, .presentation section{
+        width: 100% !important;
+        box-sizing: border-box;
+    }
+
+    .presentation{
+        padding: 0;
+        margin-top: 16em;
+    }
+    
+    .description{
+        margin: .2em;
+    }
+
+    .loginForm{
+        padding: 5em 3em;
+    }
+
+    main, .container{
+        padding: 2em .2em;
+        margin: 1em auto;
+    }
+
+      /* Page d'accueil Header */
+    .homePage {
+        height: 330px;
+    }
+    .mainLogo{
+        width: 200px;
+    }
+
+    .mainLogo--ingame{
+        margin-top: -4em;
+        margin-bottom: 6em;
+    }
+
+    .signUpLink{
+        flex-direction: column;
+        align-items: flex-end;
+        margin-top: 1em;
+    }
+    .flashMessage{
+        margin-bottom: 1em;
+    }
+
+    .backModal{
+        left: 15%;
+    }
+
+    h1.bannerTitle{
+        left: 13%
+    }
+
+    /* FIN Page d'accueil Header */
+
+    /* Page register*/
+    .persos{
+        flex-direction: column;
+    }
+
+    .persos div{
+        margin-top: 3em;
+    }
+
+    .persos .femme{
+        width: 85%;
+    }
+
+    /* FIN Page register*/
+
+    /* FIN body*/
+
+    .back--contact, .back--password{
+        margin-top: 18em;
+    }
+
+    /* main navigation ingame*/
+
+    .mainNavigation ol img{
+        width: 75px;
+    }
+    .mainNavigation ol img.center{
+        width: 110px;
+    }
+
+    .back--comments{
+        width: 100%;
+        padding: 2em .2em;
+    }
+
+    div.comment{
+        margin: 2em 0;
+    }
+
+    button.validComment,.comment p.sendBy{
+        margin-left: -5em;
+    }
+
+    .annonceLogo{
+        width: 200px;
+    }
+
+    .filter form{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .banTown{
+        background-position-y: 0px;
+        background-size: 190%;
+    }
+
+    .pageTitle{
+        width: 95%;
+        margin: 0 auto;
+    }
+
+    .productContainer{
+        padding: 0;
+    }
+
+    /* house */
+
+    .frigo{
+        right: 6%;
+    }
+
+    .etagere{
+        left: 3%;
+    }
+
+    .back--house{
+        padding: 0;
+    }
+
+    div.back--houseModal{
+        margin-left: 0;
+        height: 300px;
+    }
+
+    div.characterObjects{
+        width: 85% !important;
+        margin: 1em auto;
+    }
+
+    .objectContainer{
+        flex-wrap: wrap;
+    }
+
+    .characterObjects{
+        width: 100%;
+        margin: 1em 0;
+    }
+
+    .loading span{
+        font-size: .4em;
+        padding: .4em;
+    }
+
+    .botContainer{
+        width: 95% !important;
+    }
+
+    .back--mapPages .card{
+        width: 95%;
+        margin: 2em auto;
+    }
+
+    .diplome{
+        width: 350px;
+    }
+  }
+
+  
+
+  @media screen and (max-width: 500px) {
+
+    .back--blackjack .errors{
+        margin-top: 7em;
+    }
+
+    .personnageInformations{
+        word-break: break-all;
+    }
+  }
+
+  @media screen and (max-width: 400px) {
+
+    .bankHandContainer, .playerHandContainer{
+        max-height: 200px;
+        overflow: scroll;
+    }
+
+    .messageList div{
+        /*pour le metier facteur*/
+        width: 85%;    
+    }
+
+    .user{
+        width: 95%;
+    }
+
+    .diplome{
+        width: 250px;
+    }
+
+    .alert{
+        left: 3px;
+    }
+
+    .headerVag{
+        width: 160%;
+    }
+
+    .presentation{
+        padding: 0;
+        margin-top: 5em;
+    }
+
+    .loginForm{
+        padding: .1em;
+        margin-left: 2em;
+        margin-top: 2em;
+        width: 80%;
+    }
+      /* Page d'accueil Header */
+
+    .onlineNumber{
+        display: none;
+    }
+
+    .mainLogo{
+        position: absolute;
+        width: 150px;
+        top: -250px;
+        left: 40px;
+    }
+
+    h1.bannerTitle{
+        left: 10%;
+        font-size: 1.5em; 
+    }
+
+    .mainLogo--ingame{
+        position: relative;
+        top: 2.5em;
+        left: -4.5em;
+    }
+
+    .headerContainer--right{
+        top: 175px;
+    }
+
+    .backModal{
+        left: 0%;
+    }
+
+    .back--personnalAccount{
+        width: 70%;
+    }
+
+    main{
+        box-sizing: border-box;
+    }
+
+    .ban img{
+        width: 200px;
+    }
+
+    .mapContainer{
+        margin: 3.5em 0;
+    }
+
+    .container--messages div.back--discussion{
+        width: 120%;
+    }
+
+    .container--messages div.back--messageList{
+        margin: 1em 0;
+        width: 100%;
+    }
+
+    .messageListItem{
+        width: 88%;
+    }
+
+    .back--discussion{
+        padding: 2em 0;
+    }
+
+    .back--contact, .back--password{
+        padding: 3em .5em;
+        margin: 6em 0;
+    }
+
+    .back--characterInfos{
+        padding-top: 4em;
+    }
+
+    .back--editor form{
+        width: 100%;
+        padding: 0;
+        width: 230px;
+    }
+
+    .back--editor{
+        width: 250px;
+    }
+
+    .container--messages div.back--comments{
+        width: 115%;
+        margin-left: -1.5em;
+    }
+
+    .comment{
+        width: 100%;
+        margin: 2em .1em;
+    }
+
+    .commentTitle{
+        padding: 1em;
+        width: 180%;
+    }
+
+    .closeWindow, .window img{
+        width: 150px;
+    }
+
+    .pageTitle{
+        width: 85%;
+        margin: 3em auto;
+    }
+
+    .ad{
+        width: 100%;
+    }
+
+    /* actionModal */
+
+    .actionContainer ul{
+        width: 120%;
+    }
+
+    .actionContainer li{
+        width: 45%;
+    }
+
+    .closeModal{
+        margin-left: -6em;
+    }
+
+    .closeHouse{
+        margin-left: 12em;
+    }
+
+    .wasteRequest a {
+        flex-direction: column;
+        align-items: center;
+    }
+
+  }

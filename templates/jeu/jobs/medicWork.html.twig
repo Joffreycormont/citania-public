@@ -1,0 +1,228 @@
+{% extends 'baseIngame.html.twig' %}
+
+{% block title %}Citania - Mon Boulot{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("assets/css/profil.css") }}">
+    <link rel="stylesheet" href="{{ asset("assets/css/jobWork.css") }}">
+    <link rel="stylesheet" href="{{ asset("assets/css/medicJob.css") }}">
+{% endblock %}
+
+
+
+{% block body %}
+
+<div class="pageTitle">
+    <h3>Mon Boulot</h3>
+</div>
+    {% include "template/alert.html.twig" %} 
+
+    <section class="back back--jobDescription">
+        <h2 class="title">Médecin</h2>
+        <div class="headerJob">
+            <img src="{{ asset("assets/Images/jobs/" ~ characterGlobal.job.slug ~ ".jpg") }}" width="200px" alt="image métier">
+            <div class="jobInfos">
+                <p>Bienvenue dans ton cabinet médical, ton travail consistera à diagnostiquer les maladies de tes patients en acceptant leur demande de consultations.
+                    Une fois la consultation terminée, une ordonnance leur sera attribuée afin qu’ils puissent acheter leurs médicaments chez le pharmacien.
+                    Les Pols pourront également te choisir comme médecin traitant, tu devras chaque jour veiller à les diagnostiquer.<br><br>
+                    
+                    Tu toucheras un salaire de : <span class="priceStyle">{{ characterGlobal.job.salary }}</span> € / jour, les abonnements et les consultations. <br><br>
+
+                    Actuellement tu as gagné : **** euros (calcul automatique du gain journalier, remise à 0 au moment de la mise à jour).<br><br>
+                    Attention si tu es inactif trop longtemps tu peux te faire licencier.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="back back--jobPresentation">
+        <h2 class="title">Ma présentation</h2>
+
+        <form action="{{ path('jeu_work_editPresentation') }}" method="POST">
+            <textarea name="content" id="content">{% if characterGlobal.jobPresentation is not null  %}{{ characterGlobal.jobPresentation|raw }}{% endif %}</textarea>
+            <button type="submit">Modifier</button>
+        </form>
+
+    </section>
+
+
+
+    <section id="jobAction" class="back">
+        <h2 class="title">Demande(s) d'abonnement </h2>
+        {% for patient in characterGlobal.doctorPatients %}
+            {% if patient.acceptedStatus == 0  and patient.haveSubscription == 1 %}
+                Nouvelle demande de {{ patient.patient.firstname }} - {{ patient.patient.lastname }}
+                <div>
+                    <a class="button accept" href="{{ path('work_medic_visit_newSub_accept', {id: patient.id}) }}">Accepter</a>
+                    <a class="button deny" href="{{ path('work_medic_visit_newSub_deny', {id: patient.id}) }}">Refuser</a>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </section>
+
+
+
+    <section id="jobAction" class="back">
+        <h2 class="title">Mes patient(e)s abonné(e)s </h2>
+        <form action="{{ path('work_medic_updatePrice', {id: characterGlobal.medicPriceSubscription.id}) }}" method="POST">
+            <label for="price">Prix de l'abonnement (par jour)</label>
+            <p class="note">Attention ne met pas des prix extraordinaires, tu risques de perdre des patients. <br>Prix moyen conseillé : 15 € / jours</p>
+            <input type="number" name="price" id="price" value="{{ characterGlobal.medicPriceSubscription.price }}">
+            <button>Modifier</button>
+        </form>
+
+        {% set discoveredDiseasesArray = [] %}
+
+        {% for patient in characterGlobal.doctorPatients %}
+
+            {% set discoveredDiseasesArray = { ('patient'~patient.id) : discoveredDiseasesArray|merge({('patient'~patient.id): 0}) } %} 
+            {% set patientDiscoveryCounter = discoveredDiseasesArray|column('patient'~patient.id)[0] %}
+            
+            {% if patient.haveSubscription == 1 and patient.acceptedStatus == 1 %}
+                <div class="patientContainer">
+                    <p><strong>Patient</strong> : {{ patient.patient.firstname }} - {{ patient.patient.lastname }}, {{ patient.patient.age }} ans</p>
+
+                    {% if patient.patient.treatmentSubscription is null  %}
+
+                        {% if patient.patient.diseaseCharacters|length > 0 %}
+
+                            {% if patient.patient.diseaseCharacters|length > 1 %}
+                                <p class="multipleDiseases">Ton patient a plusieurs maladies !</p>
+                            {% endif %}
+                            {% for key, disease in patient.patient.diseaseCharacters %}
+                                {% if disease.diseaseDiscoverStatus == 0 %}
+                                    <a class="button diagnostic" href="{{ path('work_medic_diagnostic', {id: disease.id, patient: patient.id}) }}">Diagnostiquer la maladie n° {{ key + 1 }}</a>
+                                {% else %}
+                                    {% set patientDiscoveryCounter = patientDiscoveryCounter + 1 %}
+                                    <p class="diseaseReveal"><strong>- Maladie n° {{ key + 1 }} </strong>: {{ disease.disease.name }} (diagnostiquée)</p>
+                                {% endif %}
+                            {% endfor %}
+                        {% else %}
+                            <p>Ton patient n'a pas de maladie</p>  
+                        {% endif %}
+
+                        {% if patient.patient.life < 80 %}
+                            <a class="button medicalVisit" href="{{ path('work_medic_auscultation', {id: patient.id}) }}">Auscultation de routine <span>(remonte la barre de vie du patient)</span></a>  
+                        {% endif %}
+                        
+                        {% if patientDiscoveryCounter == patient.patient.diseaseCharacters|length and patient.patient.diseaseCharacters|length != 0 %}
+                            <h3>Défini le traitement à donner à ton patient :</h3>
+                            <br>
+                            <form action="{{ path('work_medic_prescription', {id: patient.id}) }}" method="POST">
+                                <ul class="prescription">
+                                    {% for treatment in treatmentList %}
+                                        <li class="treatment">
+                                            <label for="{{ treatment.name }}"> - {{ treatment.name }}</label>
+                                            <input type="checkbox" id="{{ treatment.name }}" name="treatment{{ treatment.id }}" value="{{ treatment.id }}">
+                                        </li>
+                                    {% endfor %} 
+                                </ul>
+                                <button>Valider l'ordonnance</button>
+                            </form>
+                        {% endif %}
+                    {% else %}        
+                            <p>// Ton patient à un traitement en cours. <strong>(Il doit prendre ses médicaments déjà précrits avant que les prochaines maladies ne s'affichent)</strong></p>
+                            <p>Envoie un rappel à ton patient si il met trop de temps à prendre ses médicaments.</p>
+                            {% if patient.recallTreatmentStatus == 0 %}
+                                <a class="button diagnostic" href="{{ path('work_medic_recall_treatment', {id: patient.id}) }}">Envoyer un rappel</a>
+                            {% else %}
+                                <br>
+                                <p><em>Tu as déjà envoyé un rappel à ton patient, attend demain pour en envoyer un autre si besoin.</em></p><br>
+                            {% endif %}
+                    {% endif %}
+
+                    <div class="askContainer">
+                        <a @click.prevent="jobToggle" class="cancelSub" href="#">Supprimer l'abonnement</a>
+                        <p class="validNewJob modalClosed">Es-tu sûr ?<br><br><a class="yesJob" href="{{ path('work_medic_cancelSub', {id: patient.id}) }}">Oui</a> <a class="noJob" @click.prevent="jobToggleOff" href="">Non</a></p>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </section>
+
+
+
+
+
+
+    <section class="back">
+        <h2 class="title">Demande(s) de consultation</h2>
+        <form action="{{ path('work_medic_updatePrice', {id: characterGlobal.medicPriceSubscription.id}) }}" method="POST">
+            <label for="priceConsultation">Prix de la consultation</label>
+
+            {% if consultationCount > 0 %} 
+                <br>
+                <p>Prix actuel de tes consultations : {{ characterGlobal.medicPriceSubscription.priceConsultation }} €</p>
+                <p><strong>// Tu ne peux pas modifier le prix de tes consultations pendant que tu as des demandes</strong></p>
+            {% else %}
+                <p class="note">Attention ne met pas des prix extraordinaires, tu risques de perdre des patients.</p>
+                <input type="number" name="priceConsultation" id="priceConsultation" value="{{ characterGlobal.medicPriceSubscription.priceConsultation }}">
+                <button>Modifier</button>
+            {% endif %}
+        </form>
+
+        {% for patient in characterGlobal.doctorPatients %}
+
+            {% set discoveredDiseasesArray = { ('patient'~patient.id) : discoveredDiseasesArray|merge({('patient'~patient.id): 0}) } %} 
+            {% set patientDiscoveryCounter = discoveredDiseasesArray|column('patient'~patient.id)[0] %}
+
+            {% if patient.haveSubscription == 0 %}
+
+            <div class="patientContainer">
+                <p><strong>Patient</strong> : {{ patient.patient.firstname }} - {{ patient.patient.lastname }}, {{ patient.patient.age }} ans</p>
+
+                {% if patient.patient.diseaseCharacters|length > 0 %}
+                    {% if patient.patient.diseaseCharacters|length > 1 %}
+                        <p class="multipleDiseases">Ce patient a plusieurs maladies !</p>
+                    {% endif %}
+
+                    {% for key, disease in patient.patient.diseaseCharacters %}
+                        {% if disease.diseaseDiscoverStatus == 0 %}
+                            <a class="button diagnostic" href="{{ path('work_medic_diagnostic', {id: disease.id, patient: patient.id}) }}">Diagnostiquer la maladie n° {{ key + 1 }}</a>
+                        {% else %}
+                            {% set patientDiscoveryCounter = patientDiscoveryCounter + 1 %}
+                            <p class="diseaseReveal"><strong>- Maladie n° {{ key + 1 }} </strong>: {{ disease.disease.name }} (diagnostiquée)</p>
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    <p>Ce patient n'a pas de maladie</p>     
+                {% endif %}
+
+                {% if patient.patient.life < 80 %}
+                    <a class="button medicalVisit" href="{{ path('work_medic_auscultation', {id: patient.id}) }}">Auscultation<span>(remonte la barre de vie du patient)</span></a>
+                {% endif %}
+
+                {% if patientDiscoveryCounter == patient.patient.diseaseCharacters|length and patient.patient.diseaseCharacters|length != 0 %}
+                    <h3>Défini le traitement à donner à ton patient :</h3>
+                    <br>
+                    <form action="{{ path('work_medic_prescription', {id: patient.id}) }}" method="POST">
+                        <ul class="prescription">
+                            {% for treatment in treatmentList %}
+                                <li class="treatment">
+                                    <label for="{{ treatment.name }}"> - {{ treatment.name }}</label>
+                                    <input type="checkbox" id="{{ treatment.name }}" name="treatment{{ treatment.id }}" value="{{ treatment.id }}">
+                                </li>
+                            {% endfor %} 
+                        </ul>
+                        <button>Valider l'ordonnance</button>
+                    </form>
+                {% endif %}
+                
+                <div class="askContainer">
+                    <a @click.prevent="jobToggle" class="cancelSub" href="#">Refuser la consultation</a>
+                    <p class="validNewJob modalClosed">Es-tu sûr ?<br><br><a class="yesJob" href="{{ path('work_medic_cancelConsultation', {id: patient.id}) }}">Oui</a> <a class="noJob" @click.prevent="jobToggleOff" href="">Non</a></p>
+                </div>
+
+            </div>
+
+
+            {% endif %}
+        {% endfor %}
+    </section>
+
+
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}

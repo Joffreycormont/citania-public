@@ -1,0 +1,63 @@
+{% extends 'baseIngame.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("assets/css/mapPages.css") }}">
+{% endblock %}
+
+{% block title %}Citania - Centre de formation{% endblock %}
+
+{% block body %}
+
+    <div class="pageTitle pageTitle--formation">
+        <h1>Centre de formation</h1>
+    </div>
+
+    <p><a class="link-arriane" href="{{ path('jeu_map') }}">Plan de la ville</a> <img style="width: 10px;" src="{{ asset("assets/Images/flechedroite.png") }}" alt="fléche droite"> Centre de formation</p> 
+
+    <div class="mapPagesWelcome">
+        <img data-aos="fade-up" data-aos-duration="1500" class="mapPages" src="{{ asset("assets/Images/formationCenter.jpg") }}" alt="bannière job center">
+        <div class="welcomeMessage welcomeMessage--formation">
+            
+            {% include "template/alert.html.twig" %}
+
+            <h2 data-aos="fade-left" data-aos-duration="1200">Bienvenue dans le centre de formation de citania !</h2>
+            <p data-aos="fade-up" data-aos-duration="1200">
+                
+                Tu souhaites faire des études ? <br>
+                Tu es au bon endroit c'est ici au centre de formation que tu vas pouvoir choisir ta voie professionnelle, notre centre dispose plusieurs offres pour plein de métiers dans divers secteurs. <br>
+                Choisis bien ta formation car que tu pourras en faire qu'une seule à la fois et certaines sont plus ou moins longues.
+            </p>
+        </div>
+    </div>
+
+    <section class="back back--mapPages back--formation">
+        <h2 class="title">Liste des études que dispense le centre</h2>
+        {% for study in studiesList %}
+            <div class="card">
+                <img class="jobsLogo" src="{{ asset("assets/Images/jobs/" ~ study.slug ~ ".jpg") }}" alt="image diplome">
+                <h3><span class="jobTitle-{{ study.slug }}">{{ study.name }}</span></h3> 
+                <p><strong>Description</strong> : <span>{{ study.description }}</span></p>
+                <p><strong>Durée :</strong> : <span>{{ study.duration }} an(s)</span></p>
+
+                <div class="askContainer">
+                    <p><strong>Frais</strong> : <span class="priceStyle">{{ study.price }} €</span></p>
+                    <a @click.prevent="jobToggle" class="chooseLink--formationCenter" href="#">Choisir un professeur</a>
+                    <p class="validNewJob modalClosed">Es-tu sûr ?<br><br><a class="yesJob" href="{{ path('jeu_formationCenter_newFormation', {id: study.id, mode: 'withProf'}) }}">Oui</a> <a class="noJob" @click.prevent="jobToggleOff" href="">Non</a></p>
+                </div>
+
+                <div class="askContainer">
+                    <p><strong>Frais</strong> : <span class="priceStyle">{{ study.price + 500 }} €</span></p>
+                    <a @click.prevent="jobToggle" class="chooseLink--formationCenter" href="#">Etudes sans professeur</a>
+                    <p class="validNewJob modalClosed">Es-tu sûr ?<br><br><a class="yesJob" href="{{ path('jeu_formationCenter_newFormation', {id: study.id, mode: 'withoutProf'}) }}">Oui</a> <a class="noJob" @click.prevent="jobToggleOff" href="">Non</a></p>
+                </div>
+
+                <div class="askContainer">
+                    <p><strong>Frais</strong> : <span>{{ study.priceDiamond }} <img style="width: 20px;" src="{{ asset("assets/Images/diamond.png") }}" alt="image diamant"></span></p>
+                    <a @click.prevent="jobToggle" class="chooseLink--formationCenter" href="#">Etudes V.I.P</a>
+                    <p class="validNewJob modalClosed">Es-tu sûr ?<br><br><a class="yesJob" href="{{ path('jeu_formationCenter_newFormation', {id: study.id, mode: 'vip'}) }}">Oui</a> <a class="noJob" @click.prevent="jobToggleOff" href="">Non</a></p>
+                </div>    
+            </div>
+        {% endfor %}
+    </section>
+
+{% endblock %}

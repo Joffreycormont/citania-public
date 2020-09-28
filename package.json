@@ -1,0 +1,29 @@
+{
+    "devDependencies": {
+        "@symfony/webpack-encore": "^0.28.2",
+        "core-js": "^3.0.0",
+        "regenerator-runtime": "^0.13.2",
+        "webpack-notifier": "^1.6.0"
+    },
+    "license": "UNLICENSED",
+    "private": true,
+    "scripts": {
+        "dev-server": "encore dev-server",
+        "dev": "encore dev",
+        "watch": "encore dev --watch",
+        "build": "encore production --progress"
+    },
+    "dependencies": {
+        "@ckeditor/ckeditor5-build-classic": "^16.0.0",
+        "@ckeditor/ckeditor5-vue": "^1.0.1",
+        "axios": "^0.19.0",
+        "discord.js": "^12.1.1",
+        "jw-vue-pagination": "^1.0.3",
+        "slick-carousel": "^1.8.1",
+        "vue": "^2.6.11",
+        "vue-infinite-slide-bar": "^1.1.1",
+        "vue-loader": "^15.8.3",
+        "vue-moment": "^4.1.0",
+        "vue-template-compiler": "^2.6.11"
+    }
+}

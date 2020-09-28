@@ -1,0 +1,49 @@
+{% extends 'baseIngame.html.twig' %}
+
+{% block title %}Citania - Bureau de {{ character.firstname }} {{ character.lastname }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("assets/css/profil.css") }}">
+    <link rel="stylesheet" href="{{ asset("assets/css/jobWork.css") }}">
+{% endblock %}
+
+
+
+{% block body %}
+
+<div class="pageTitle">
+    <h3>Facteur(trice) - {{ character.firstname }} {{ character.lastname }}</h3>
+</div>
+    {% include "template/alert.html.twig" %}
+    
+    <p><a class="link-arriane" href="{{ path('jeu_town') }}">Centre ville</a> <img style="width: 10px;" src="{{ asset("assets/Images/flechedroite.png") }}" alt="fléche droite"> Facteur(trice) - {{ character.firstname }} {{ character.lastname }}</p> 
+
+    <div  style="text-align:center;">
+        <img src="{{ asset("assets/Images/jobs/" ~ character.job.slug ~ ".jpg") }}" width="200px" alt="image métier">
+    </div>
+
+    <section class="back back--jobDescription">
+        <h2 class="title">Sa présentation</h2>
+        <div class="headerJob">
+            <div class="jobInfos">
+                <p>{{ character.jobPresentation|raw }}</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="back">
+        <h2 class="title">Achat de timbre</h2>
+        <h3>Acheter des timbres ({{ character.stampStock.quantity }} en stock):</h3>
+        <form action="{{ path('work_factor_buyStamp', {id: character.stampStock.id}) }}" method="POST">
+            <p><strong>Prix du timbre dans ce bureau de poste : {{ character.stampStock.price }} € (unité)</strong></p>
+            <label for="quantity">Quantité</label>
+            <input type="number" max="99" min="0" name="quantity" id="quantity">
+            <button type="submit">Acheter</button>
+        </form>
+    </section>
+
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}

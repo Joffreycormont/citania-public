@@ -1,0 +1,41 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block title %}Citania - Panel Administration{% endblock %}
+
+{% block stylesheets %}
+
+{% endblock %}
+
+{% block body %}
+    {% include "template/alert.html.twig" %}
+    
+    <section class="mainInfos">
+        <section class="card userConnected">
+            <h4><connected-Count></connected-Count><br> utilisateur(s) connecté(s)</h4>
+        </section>
+
+        <section class="card userRegistered">
+            <h4><span>{{ registeredCount }}</span><br> utilisateur(s) inscrit(s)</h4>
+        </section>
+
+        <section class="card reportContent">
+            <h4><span>0</span><br> Signalement(s) en attente de traitement</h4>
+        </section>
+
+        <section class="main">
+            <h2>Ajouter une news</h2>
+            <form action="{{ path('admin_panel_addNews') }}" method="POST">
+                <div>
+                    <label for="title">Titre de la news</label> <br>
+                    <input type="text" name="title" id="title">
+                </div>
+
+                <div>
+                    <label for="content">Contenu</label><br>
+                    <textarea name="content" id="content" rows="25" cols="150"></textarea>
+                </div>
+                <button type="submit">Ajouter</button>
+            </form>
+        </section>
+    </section>
+{% endblock %}

@@ -1,0 +1,80 @@
+.banlogBook{
+    position: relative;
+    width: 100%;
+    background-color: #e7e7e7;
+    border-radius: 40px;
+    margin-top: -1.5em;
+    height: 180px;
+    padding: 0 1.5em;
+    background-image: url('../Images/diaryban.jpg');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position-y: -280px;
+}
+
+.banlogBook img{
+    display: block;
+    margin: 0 auto;
+    padding-top: 1.5em;
+    width: 350px;
+}
+
+h2.pageTitleInGame--logBook{
+    background-color: #77abd0;
+    color: white;
+    width: fit-content;
+    padding: .5em;
+    border-radius: 30px;
+    position: absolute;
+    bottom: -.7em;
+}
+
+.back--logbook{
+    margin: 8em auto;
+    width: 85%;
+}
+
+.back--logbook h2.title {
+    background-color: #77abd0;
+}
+
+.eventContainer{
+    border-bottom: 1px solid lightgrey;
+    display: flex;
+    justify-content: space-between;
+    padding: 1em 0;
+    width: 100%;
+}
+
+.eventContainer p{
+    margin-right: 5em;
+}
+
+.back p.eventCategory{
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.back p.Social{
+    color: #77abd0;
+}
+
+.back p.Emploi{
+    color: #f1ba72;
+}
+
+.back p.Services{
+    color: #529c55;
+}
+
+.back p.Premium{
+    color: #72cada;
+}
+
+.back p.Sante{
+    color: #d83939;
+}
+
+.back p.Formation{
+    color: #46252e ;
+}

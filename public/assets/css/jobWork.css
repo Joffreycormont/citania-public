@@ -1,0 +1,96 @@
+.trashTruckContainer, .headerJob, .wasteRequest, .wasteRequest a, .wasteRequestContainer{
+    display: flex;
+}
+
+
+.headerJob{
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.jobInfos{
+    padding: 3em;
+}
+
+.back{
+    width: 85%;
+}
+
+.back--eboueurJob{
+    color: rgb(87, 87, 87);
+}
+
+.wasteRequestContainer{
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.wasteRequest{
+    flex-direction: column;
+    align-items: center;
+    margin: 1em;
+    padding: .8em 1.5em;
+    border: 1px solid #8ed077;
+    border-radius: 60px;
+}
+
+.wasteRequest a, .truckInfos a{
+    width: fit-content;
+    background-color: #8ed077;
+    color: white;
+    border-radius: 60px;
+    padding: .5em;
+    margin: .5em;
+}
+
+.wasteRequest img{
+    margin: 0 .3em;
+}
+
+.trashTruck{
+    width: 450px;
+}
+
+.barre{
+    height: 30px;
+}
+
+.barreInfo{
+    height: 100%;
+}
+
+.truckInfos .barre, .truckInfos p{
+    margin: 1em;
+}
+
+.back span, .back span.medium, .back span.hard{
+    font-weight: bold;
+    color: #8ed077;
+}
+
+.back span.medium{
+    color: #d0a377;
+}
+
+.back span.hard{
+    color: #ca5b53;
+}
+
+.back--jobPresentation form, .back--jobPresentation textarea{
+    width: 100%;
+}
+
+.back--jobDescription div{
+    padding: 1.5em;
+}
+
+.back--trashTruck img{
+    width: 400px;
+}
+
+
+.trashTruckContainer{
+    flex-wrap: wrap;
+}

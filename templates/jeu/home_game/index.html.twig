@@ -1,0 +1,46 @@
+{% extends 'baseIngame.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("assets/css/news.css") }}">
+{% endblock %}
+
+{% block title %}Citania - news{% endblock %}
+
+{% block body %}
+
+    <div class="back">
+        <h2 class="title">Bienvenue</h2>
+        <p>
+            Bonjour et bienvenue à toi <strong>Citanien(ne)</strong> <br><br>
+            Tout d'abord bienvenue sur <strong>Citania</strong>. <strong>Citania</strong> est un <strong>jeu de simulation de vie</strong> sur navigateur (adapté sur navigateur mobile/tablette également) de type role-play, permettant de se mettre dans la peau d'un personnage tout en développant votre histoire, tu pourra à travers ce jeu effectuer plusieurs actions comme : avoir un métier (Avocat, Policier, Médecin, Hackeur, Voleur, Président etc...), intéragir avec la communauté des joueurs, avoir des enfants, se marier, jouer au loto et beaucoup d'autres choses à découvrir !<br><br>
+            Afin de commencer votre <strong>jeu</strong> dans de bonnes conditions vous avez ce <a class="link" href="">Guide</a> qui est à votre disposition qui vous explique le fonctionnement global du jeu, ou vous pouvez découvrir le jeu par vous même :)<br><br>
+
+            Si vous avez une question n'hésitez pas à nous contacter <a class="link" href="">ici</a>, ou sur le discord.
+            <br><br>
+            Nous vous souhaitons un bon <strong>jeu</strong> sur <strong>Citania</strong> !
+        </p>
+    </div>
+    <div class="back back--news">
+        <h2 class="title">News</h2>
+        {% for news in newsList %}
+            <div id="news" class="news">
+                {% if date(news.updatedAt) > date() %}
+                    <div class="newsTag">Nouveauté</div>
+                {% endif %}
+                <h3>{{ news.title }}</h3>
+                <p>{{ news.content|raw }}</p>
+                <p>Le <strong>{{ news.createdAt|date('d/m/y') }} à {{ news.createdAt|date('H') }} h {{ news.createdAt|date('i') }}</strong></p>
+            </div>
+        {% endfor %}
+    </div>
+
+
+
+{% endblock %}
+
+{% block javascripts %}
+  <script type="text/javascript">
+  var wsUrl = '{{ ws_url }}';
+  </script>
+  <script type="text/javascript" src="{{ asset('assets/js/sf-websocket.js') }}"></script>
+{% endblock %}

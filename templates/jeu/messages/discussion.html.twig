@@ -1,0 +1,63 @@
+{% extends 'baseIngame.html.twig' %}
+
+{% block title %}Citania - Discussion{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("assets/css/message.css") }}">
+{% endblock %}
+
+{% block body %}
+
+    {% include "template/alert.html.twig" %}
+
+    <div class="pageTitle">
+        <p>Ma messagerie</p>
+    </div>
+
+    <a class="link" href="{{ path('jeu_messages') }}">Revenir à ma messagerie</a>
+
+    <p>Il te reste {{ characterGlobal.stamps }} timbre(s) en stock</p>
+
+    <div class="container--messages container--messages--discussion">
+
+        <div class="back back--discussion">
+            <h2 class="title">Ma discussion avec {{ sendCharacter.firstname }} {{ sendCharacter.lastname }}</h2>
+            <div class="flexDiscussion">
+                {% for message in discussion %}
+                    {% if message.receiverId == characterGlobal.id and message.send.id == sendId or message.receiverId == sendId and message.send.id == characterGlobal.id%}
+                        {% if message.status == 1 or message.status == 2 %}
+                            <div class="messageListItem--discussion {% if message.send.id == characterGlobal.id %}alignRight{% endif %}" {% if message.last == 1 %}id="last"{% endif %}>
+                                <div>
+                                    <h2 class="userPseudo">{{ message.send.firstname }}</h2>
+                                    <div class="messageContent">{{ message.message|raw|nl2br }}</div>
+                                </div>
+                                <div class="messageInfos">
+                                    <p class="messageDate">Message envoyé le : {{ message.createdAt|date('d/m/y') }} à {{ message.createdAt|date('H') }} h {{ message.createdAt|date('i') }}</p>                                    
+                                    <div class="askContainer">
+                                        <a @click.prevent="jobToggle" class="trash" href="#" title="Supprimez ce message">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                        <p class="validNewJob modalClosed">Le message sera signalé en même temps<br><br><a class="yesJob" href="{{ path('jeu_messages_delete', {id: message.id}) }}">Valider</a> <a class="noJob" @click.prevent="jobToggleOff" href="">Annuler</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+
+        <div id="newComment" class="back back--comments">
+            <h2 class="title">Envoyer un nouveau message</h2>
+            <form action="{{ path('jeu_messages_new', {receiverId: sendCharacter.id, sendId: characterGlobal.id }) }}" method="post">
+                <textarea name="content" id="content"></textarea>
+                <button type="submit">Envoyer</button>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}

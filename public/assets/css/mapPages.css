@@ -1,0 +1,77 @@
+p, h3{
+    color: rgb(179, 172, 172)
+}
+
+.pageTitle, .back h2.title{
+    background-color: #c99776;
+}
+
+.pageTitle--formation, .back--formation h2.title{
+    background-color: #46252e;
+}
+
+img.mapPages{
+    width: 40%;
+    -webkit-box-shadow: 22px 21px 21px -16px rgba(0,0,0,0.75);
+    -moz-box-shadow: 22px 21px 21px -16px rgba(0,0,0,0.75);
+    box-shadow: 22px 21px 21px -16px rgba(0,0,0,0.75);
+}
+
+.mapPagesWelcome, .back--mapPages{
+    display: flex;
+}
+
+.back--mapPages{
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 80%;
+}
+
+.welcomeMessage{
+    padding: 2em;
+}
+
+.welcomeMessage h2 {
+    color: #c99776;
+    padding: 2em 0;
+}
+
+.welcomeMessage--formation h2 {
+    color: #46252e;
+}
+
+
+.jobsLogo{
+    width: 150px;
+}
+
+.jobTitle-facteur{
+    color: #73b4ca;
+}
+
+.jobTitle-fast_food{
+    color: #e2982f;
+}
+
+.jobTitle-aide_soignant{
+    color: #b6eefe;
+}
+
+.jobTitle-barman{
+    color: #ef3250;
+}
+
+.jobTitle-eboueur{
+    color: #077d33;
+}
+
+.askContainer p{
+    margin: .3em 0;
+    padding: .5em 0;
+}
+
+.chooseLink--formationCenter{
+    background-color: #46252e !important;
+    margin: .2em;
+}

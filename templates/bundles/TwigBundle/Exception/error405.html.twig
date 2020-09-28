@@ -1,0 +1,24 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Citania - Erreur{% endblock %}</title>
+    <link rel="stylesheet" href="{{ asset("assets/css/style.css") }}">
+    <link rel="icon" type="image/png" href="{{ asset("assets/Images/citania logo.png") }}" />
+    {% block stylesheets %}{% endblock %}
+    <link rel="stylesheet" href="{{ asset("assets/css/responsive.css") }}">
+</head>
+<body>
+    <main>
+        <div style="text-align: center;">
+            <img style="width: 400px; margin-top: 2em;" src="{{ asset("assets/Images/citania logo.png") }}" alt="logo citania">
+            <h3 style="font-size: 2em; margin: 2em auto;"><span>405</span> Tu utilises une URL non autorisée.</h3>
+            <a style="color: #77abd0; margin-bottom: 13.5em; display:block;" href="{{ path('home') }}">Retour à la page d'accueil</a>
+        </div>
+    </main>
+    {% include 'template/footer.html.twig' %}
+</body>
+</html>
+

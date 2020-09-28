@@ -1,0 +1,12 @@
+    //////// code pour le chat avec websocket
+    
+    <div class="container">
+        <h2>AFSY - WebSockets and Symfony</h2>
+        <div id="ws-content-receiver">
+        Connecting...
+        </div>
+    </div>
+
+    <div id="ws-content-receiver"></div>
+    <input type="text" id="ws-content-to-send" />
+    <button id="ws-send-content">Send</button>

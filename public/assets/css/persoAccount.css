@@ -1,0 +1,67 @@
+.back--personnalAccount{
+    width: 25%;
+    margin-top: 12em;
+}
+
+.accountInfos, .accountContainer{
+    display: flex;
+}
+
+.accountInfos{
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+}
+
+.accountInfos div{
+    width: 70%;
+}
+
+.accountContainer{
+    margin-top: 4em;
+}
+
+.accountContainer section{
+    align-self: start;
+}
+
+.back--personnalAccount section{
+    border-top: 1px solid rgb(231, 231, 231) ;
+    border-bottom: 1px solid rgb(231, 231, 231) ;
+    padding: 1em;
+}
+
+.modif h2.title{
+    background-color: #d0a377;
+}
+
+h5{
+    font-size: 1.2em;
+    padding: .5em;
+    font-weight: normal;
+    text-decoration: underline;
+    color: #d0a377;
+}
+
+section label{
+    color: darkgray;
+}
+
+.back--personnalAccount button{
+    background-color: #d0a377;
+}
+
+div.command{
+    width: 100%;
+    border-bottom: 1px solid #8ed077;
+    padding: 1em 0;
+}
+
+div.command h3 {
+    color: #8ed077;
+}
+
+.commandName{
+    margin-bottom: .5em;
+    font-weight: bold;
+}

@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Citania - Nous contacter{% endblock %}
+
+{% block body %}
+    <section class="background">
+        <form action="{{ path('contact_send_message') }}" method="POST">
+            <div class="back back--contact">
+                <p class="title">Contacter le webmaster de <strong>Citania</strong></p>
+                <p>* requis</p>
+                <div>
+                    <label for="email">Votre Email *</label>
+                    <div>
+                        <input type="email" id="email" name="email" placeholder="Email..."  required>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="subject">Sujet *</label>
+                    <select name="subject" id="subject">
+                        <option value="nothing">--Choisissez le sujet--</option>
+                        <option value="Jeu">Jeu</option>
+                        <option value="partenariat">Partenariat</option>
+                        <option value="Remboursement">Remboursement</option>
+                        <option value="Bug">Bug</option>
+                        <option value="Divers">Divers</option>
+                    </select>
+                </div>
+
+                <div class="textarea">
+                    <label class="messageContact" for="message">Votre Message *</label>
+                    <textarea name="message" id="message" cols="30" rows="10" required></textarea>
+                </div>
+                <button type="submit">Envoyer</button>
+            </div>
+        </form>
+
+    </section>
+{% endblock %}

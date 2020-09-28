@@ -1,0 +1,48 @@
+
+.alert{
+    margin: 1em auto;
+}
+
+.focusedInput{
+    border: 1.5px solid #8ed077;
+}
+
+
+.register{
+    padding: 2em 0;
+    margin: 5em auto;
+    width: 80%;
+    box-sizing: border-box;
+}
+
+.persos{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.persos div{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.rulesAccept{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.persos div img{
+    margin: 1em;
+}
+
+.homme img{
+    width: 75%;
+}
+
+.g-recaptcha--register{
+    margin: 4em auto 0;
+}
+

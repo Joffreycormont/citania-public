@@ -1,0 +1,79 @@
+{% extends 'baseIngame.html.twig' %}
+
+{% block title %}Citania - Bureau de {{ character.firstname }} {{ character.lastname }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("assets/css/profil.css") }}">
+    <link rel="stylesheet" href="{{ asset("assets/css/jobWork.css") }}">
+    <link rel="stylesheet" href="{{ asset("assets/css/medicJob.css") }}">
+{% endblock %}
+
+
+
+{% block body %}
+
+<div class="pageTitle">
+    <h3>Médecin - {{ character.firstname }} {{ character.lastname }}</h3>
+</div>
+    {% include "template/alert.html.twig" %}
+    
+    <p><a class="link-arriane" href="{{ path('jeu_town') }}">Centre ville</a> <img style="width: 10px;" src="{{ asset("assets/Images/flechedroite.png") }}" alt="fléche droite"> Médecin - {{ character.firstname }} {{ character.lastname }}</p> 
+
+    <div  style="text-align:center;">
+        <img src="{{ asset("assets/Images/jobs/" ~ character.job.slug ~ ".jpg") }}" width="200px" alt="image métier">
+    </div>
+
+    <section class="back back--jobDescription">
+        <h2 class="title">Sa présentation</h2>
+        <div class="headerJob">
+            
+            <div class="jobInfos">
+                <p>{{ character.jobPresentation|raw }}</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="back back--medicVisit">
+        <h2 class="title">Faire une demande</h2>
+
+        <div>
+            {% if characterGlobal.patients|length  > 0 %}
+                <br>Vous avez déjà une demande d'abonnement ou de consultation ou un abonnement en cours chez 
+                <a class="link" href="{{ path('profil_visit', {id: characterGlobal.patients[0].doctor.id}) }}">{{ characterGlobal.patients[0].doctor.firstname }} - {{ characterGlobal.patients[0].doctor.lastname }}</a> <br>
+
+                <div class="askContainer">
+                    <a @click.prevent="jobToggle" class="button deny" href="#">Annuler ma demande</a>
+                    <p class="validNewJob modalClosed">Es-tu sûr ?<br><br><a class="yesJob" href="{{ path('work_medic_visit_deny_visitor', {id: characterGlobal.patients[0].id}) }}">Oui</a> <a class="noJob" @click.prevent="jobToggleOff" href="">Non</a></p>
+                </div>   
+            {% elseif characterGlobal.patients|length  == 0 %}
+
+                {% if  characterGlobal.treatmentTaken == 1 or characterGlobal.treatmentTaken == 2 %}
+                    <p><strong>Tu as déjà reçu une ordonnance pour un traitement, du dois aller les acheter dans une pharmacie avant de pouvoir revenir ici pour autre chose !
+                    </strong></p>
+                {% else %}
+
+                    <p>Je souhaite faire une demande pour que ce médecin, soit mon médecin traitant (ton medecin peut remonter ta barre de vie dès qu'elle atteint 80% et directement diagnostiquer tes maladies sans demande.): <br>
+                    <strong>Coût de l'abonnement</strong> : <span class="priceStyle">{{ character.medicPriceSubscription.price }}</span> € / jour(IRL).
+                    </p>
+
+                    <a class="button diagnostic" href="{{ path('work_medic_visit_newSub', {doctor: character.id}) }}">Demande d'abonnement</a>
+
+                    <div>
+                        <p>Je souhaite faire remonter ma barre de vie et/ou faire diagnostiquer mes maladies :<br>
+                            <strong>Coût de la consultation</strong> : <span class="priceStyle">{{ character.medicPriceSubscription.priceConsultation }}</span> € / consultation.
+                        </p>
+                        <a class="button diagnostic" href="{{ path('work_medic_newConsultation', {doctor: character.id}) }}">Demande de consultation classique</a>
+                    </div>
+                {% endif %}
+            {% endif %}
+        </div>
+        
+
+
+    </section>
+
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}

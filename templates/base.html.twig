@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="refresh" content="910" />
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="stylesheet" href="{{ asset("assets/css/style.css") }}">
+        <link rel="icon" type="image/png" href="{{ asset("assets/Images/citania logo.png") }}" />
+        {% block stylesheets %}{% endblock %}
+        <link rel="stylesheet" href="{{ asset("assets/css/responsive.css") }}">
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="slick/slick.css"/>
+        <link rel="stylesheet" type="text/css" href="slick/slick-theme.css"/>
+        <script
+        src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous"></script>
+        <script data-ad-client="ca-pub-6831795118342598" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            <header class="homePage">
+                <img data-aos="fade-up" data-aos-duration="1000" class="headerVag" src="{{ asset("assets/Images/headervaggreen.png") }}" alt="">
+                <img class="headerVag" src="{{ asset("assets/Images/headervagwhite.png") }}" alt="">
+                <div class="top-left">
+                    <p class="onlineNumber"><connected-Count></connected-Count>joueurs connectés</p>
+                    <p data-aos="fade-left" data-aos-duration="1000" class="desc"> <strong>Site en beta</strong></p>
+                </div>
+        
+                <div>
+                   <a href="{{ path('home') }}"><img data-aos="fade-down" data-aos-duration="1100" class="mainLogo 
+                    {% if app.request.get('_route') is not null %} 
+                        {% if app.request.get('_route') == 'user_register' %} 
+                            mainLogo--register 
+                        {% elseif app.request.get('_route') == 'personnal_account' %}
+                            mainLogo--account
+                        {% endif %}
+                    {% endif %}
+                   " src="{{ asset("assets/Images/citania logo.png") }}" alt="logo citania" title="Logo Citania"></a>
+                </div>
+
+                {% include "template/alert.html.twig" %}
+        
+                <div class="loginForm">
+                    {% if is_granted('ROLE_USER') == false %}
+                        <form class="formLogin" method="post">
+                            <div class="inputContainer">
+                                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus placeholder="Votre email...">
+                                <img src="{{ asset("assets/Images/emailIconLogin.jpg") }}" alt="email icon">
+                            </div>
+            
+                            <div class="inputContainer">
+                                <input type="password" name="password" id="inputPassword" class="form-control" required placeholder="Votre mot de passe...">
+                                <img class="cadena" src="{{ asset("assets/Images/cadena.jpg") }}" alt="cadena icon">
+                            </div>
+
+                            <div>
+                                <a class="pswForgotten" href="{{ path('app_password') }}" title="Retrouvez mon mot de passe">mot de passe oublié ?</a>
+                            </div>
+            
+                            <input type="hidden" name="_csrf_token"
+                                value="{{ csrf_token('authenticate') }}"
+                            >
+
+                            <div class="signUpLink">
+                                <button class="headerLinks headerLinks--connect" type="submit">Connexion</button>
+                                {% if is_granted('ROLE_USER') == false %}
+                                    <p class="inline">Pas de compte ? <a class="" href="{{ path('user_register') }}" title="Nouvelle page - inscription">Inscription</a></p>
+                                {% endif %}
+                            </div>
+                        </form>
+                    {% endif %}
+
+                    {% if is_granted('ROLE_USER') %}
+                        <div class="signUpLink">
+                            <a href="{{ path("jeu_news") }}">Retour au jeu</a>
+                            <a class="headerLinks" href="{{ path("self_deconnexion") }}" title="Déconnexion">Déconnexion</a>
+                        </div>
+                    {% endif %}
+                </div>
+            </header> 
+            {% block body %}{% endblock %}
+            {% include 'template/footer.html.twig' %}
+        </div>
+        {% block javascripts %}{% endblock %}
+        <script
+        src="https://code.jquery.com/jquery-3.5.0.min.js"
+        integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ="
+        crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+        <script type="text/javascript" src="slick/slick.min.js"></script>
+
+        <script>
+            AOS.init();
+        </script>
+
+        <script type="text/javascript">
+            var onloadCallback = function() {
+            };
+        </script>
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+        <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit"
+            async defer>
+        </script>
+        {{ encore_entry_script_tags("app") }}
+
+          <script type="text/javascript">
+            $('.partners').slick({
+            slidesToShow: 4,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 3500,
+            arrows: false,
+            responsive: [{
+ 
+                breakpoint: 1024,
+                settings: {
+                slidesToShow: 3,
+                infinite: true
+                }
+
+                }, {
+
+                breakpoint: 600,
+                settings: {
+                slidesToShow: 1,
+                dots: false
+                }
+
+                }, {
+
+                breakpoint: 300,
+                settings: "unslick" // destroys slick
+
+                }]
+            });
+        </script>
+    </body>
+</html>

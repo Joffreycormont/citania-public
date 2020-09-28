@@ -1,0 +1,93 @@
+.back h3{
+    color: rgb(65, 65, 65);
+}
+
+.patientContainer{
+    border-bottom: 1px solid grey;
+    width: 100%;
+    padding: 1.5em .5em;
+}
+
+
+
+a.diagnostic{
+    background-color: rgb(216, 148, 84);
+}
+
+a.accept{
+    background-color: #8ed077;
+}
+
+a.deny{
+    background-color: rgb(177, 67, 59);
+}
+
+p.multipleDiseases{
+    color: rgb(216, 148, 84);
+    font-weight: bold;
+    font-style: italic;
+}
+
+.medicalVisit{
+    background-color: rgb(145, 198, 233);
+}
+
+.diseaseReveal{
+    margin: .5em;
+}
+
+a.cancelSub{
+    color: rgb(177, 67, 59);
+    text-decoration: underline;
+}
+
+.button span{
+    color: white;
+    font-weight: normal;
+    font-style: italic;
+}
+
+.prescription{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.treatment{
+    color: white !important;
+    border-radius: 20px;
+    width: 280px;
+    background-color: rgb(145, 198, 233);
+    padding: .5em 1em;
+}
+
+.back--medicVisit div{
+    margin: 1em 0;
+}
+
+
+
+
+/* job Pharmacien */
+
+.treatmentList form, .treatmentStockList form{
+    display: flex;
+    flex-wrap: wrap;
+    justify-items: start;
+}
+
+.treatmentProvider{
+    margin: 1em;
+    justify-self: flex-start;
+}
+
+.back--pharmacieProvider h3{
+    margin: 1em 0;
+}
+
+.treatmentStock{
+    margin: 1em;
+}
+
+.patientContainer > ul:first-of-type{
+    margin: 1em 0;
+}

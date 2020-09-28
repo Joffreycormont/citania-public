@@ -1,0 +1,242 @@
+{% extends 'baseIngame.html.twig' %}
+
+{% block title %}Citania - Profil de {{ character.firstname }} {{ character.lastname }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("assets/css/profil.css") }}">
+{% endblock %}
+
+{% set commentsList = commentsList %}
+
+{% block body %}
+    <div class="pageTitle">
+        <p>Profil de {{ character.firstname }} {{ character.lastname }}</p>
+    </div>
+
+    {% if character.musicProfilLink is not empty %}
+        <div class="buttonMusicContainer">
+            <div id="bars">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+            <a @click.prevent="stopProfilMusic" class="button stopMusic" href="#">Couper la musique du profil</a>
+        </div>
+    {% endif %}
+
+        {% include "template/alert.html.twig" %} 
+
+        <section class="profilInformations">
+            <div class="personnage">
+                <div class="persoContainer">
+                    <img src="
+                    {% if character.sexe == "femme" %}
+                        {{ asset("assets/Images/fille.png") }}
+                    {% elseif character.sexe == "homme" %}
+                        {{ asset("assets/Images/homme.png") }}
+                    {% endif %}" 
+                    alt="">
+                </div>
+                <div class="personnageNames">
+                    
+                    <p><span>Nom : </span> {{ character.lastname }}</p>
+                    <p><span>Prénom : </span> {{ character.firstname }}</p>
+                    <p><span>Age : </span> {{ character.age }} ans</p>
+                </div>
+            </div>
+            <div class="informations">
+                <div class="personnageInformations">
+                    <h3>Son personnage</h3>
+                    <div class="informationsContainer">
+                        <ul>
+                            <li>
+                                <span class="job">Métier : </span>
+    
+                                <div>
+                                    {% if character.job is not null %}
+                                        <a href="{{ path('jeu_work_visit', {id: character.id}) }}">{{ character.job.name }}
+                                        </a>
+                                    {% endif %}
+                                </div>
+                            </li>
+    
+                            <li>
+                                <span class="money">Argent : </span>
+                                <div>{{ character.money }} €</div>
+                            </li>
+    
+                            <li>
+                                <span class="diamond">Diamant(s) : </span> 
+                                <div>
+                                    {{ character.diamond }}
+                                </div>
+                            </li>
+    
+                            <li>
+                                <span>Visite(s) : </span>
+                                <div>
+                                    {{ character.visitor }}
+                                </div>
+                            </li>
+    
+                            <li>
+                                <span>Humeur : </span>
+                                <div>
+                                    ${ Humor }
+                                </div>
+                            </li>
+    
+                            <li>
+                                <span>Situation familiale: </span>
+                                <div>
+                                    ${ relationStatus }
+                                </div>
+                            </li>
+    
+                            <li>
+                                <span>Enfant(s) :</span>
+                                <div>
+                                    {{ character.childrens|length }}
+                                </div>
+                            </li>
+    
+                            <li>
+                                <span>Bisous : </span> 
+                                <div>
+                                    {{ character.kisses }}
+                                </div>
+                            </li>
+    
+                            <li>
+                                <span>Coup de poing : </span>
+                                <div>
+                                    {{ character.punchs }}
+                                </div>
+                            </li>
+    
+                            <li>
+                                <span>Calin : </span>
+                                <div>
+                                    {{ character.hugs }}
+                                </div>
+                            </li>
+    
+                            <li>
+                                <span>Pincement : </span>
+                                <div>
+                                    {{ character.pinchs }}
+                                </div>
+                            </li>
+    
+                            <li>
+                                <span>Sourire : </span>
+                                <div>
+                                    {{ character.smiles }}
+                                </div>
+                            </li>
+    
+                            <li><span>Cheveux tirés : </span>
+                                <div>
+                                    {{ character.pulledHair }}
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+                <div class="others">
+                    <div class="contact">
+                        <h3>Contacts de {{ character.firstname }} {{ character.lastname }} ({{ friendList|length }})</h3>
+                        <a href="{{ path('jeu_profil_newFriendRequest', {receiverId: character.id}) }}" class="link"> Envoyer une demande d'ajout </a>
+                        <br><br>
+                        <ul>
+                            {% for friend in friendList %}
+                                {% if friend.status == 1 %}
+                                    <li>
+                                        {% if character.id != friend.receiver.id %}
+                                            <a class="{% if friend.receiver.sexe == "homme" %} homme {% elseif friend.receiver.sexe == "femme" %} femme {% endif %}" href="{{ path('profil_visit', {id: friend.receiver.id }) }}"> {{ friend.receiver.firstname }} - {{ friend.receiver.lastname }}, {{ friend.receiver.age}} ans  </a>  
+                                        {% else %}
+                                            <a class="{% if friend.send.sexe == "homme" %} homme {% elseif friend.send.sexe == "femme" %} femme {% endif %}" href="{{ path('profil_visit', {id: friend.send.id }) }}"> {{ friend.send.firstname }} - {{ friend.send.lastname }}, {{ friend.send.age}} ans  </a>
+                                        {% endif %}
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="musicProfil">
+                        <h3>Fenêtre de {{ character.firstname }} {{ character.lastname }}</h3>
+                        <div class="window">
+                            {% if character.isWindowOpen == 0 %}
+                                <p class="windowStatus">Fenêtre fermée</p>
+                            {% else %}
+                                <p class="windowStatus">Fenêtre ouverte</p>
+                            {% endif %}
+        
+                            {% if userVisitor.characters.job is not null %}
+                                {% if userVisitor.characters.job.name == "Détective" %}
+                                    <a href=""><img class="{% if character.isWindowOpen == false %}closeWindow{% endif %}" src="{{ asset("assets/Images/window.png") }}" alt="image fenêtre"></a>
+                                    <a class="link" href="">Espionner</a>
+                                    <p>* En tant que détective tu peux espionner les citanien(ne) quand leur fenêtre est ouverte.</p>
+                                {% else %}
+                                    <img width="200px" class="{% if character.isWindowOpen == false %}closeWindow{% endif %}" src="{{ asset("assets/Images/window.png") }}" alt="image fenêtre">
+                                {% endif %}
+                            {% else %}
+                                <img class="{% if character.isWindowOpen == false %}closeWindow{% endif %}" src="{{ asset("assets/Images/window.png") }}" alt="image fenêtre">    
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="user" page="profil">
+                        <a @click.prevent="toggle" class="actionfromProfil actionButton" href="">Panneau d'intéraction</a>
+                        {% include 'template/actionModal.html.twig' %} 
+                        <a class="actionfromProfil actionButton" href="#newComment">Envoyer un commentaire</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="back back--editor">
+            <h2 class="title">Profil de {{ character.firstname }} {{ character.lastname }} </h2>
+            <div class="profilVisit">{% if character.profils is not null  %} {{ character.profils.content|raw }} {% else %} Sans profil {% endif %}</div>
+        </div>
+
+        <section class="profil">
+            <div class="back back--comments">
+                <h2 class="title">Commentaires validés</h2>
+                {% for comment in commentsList %}
+                    {% if comment.status == 1 %}
+                        <div class="comment">
+                            <div class="commentTitle">Commentaire envoyé par :
+                                <a href="{{ path('profil_visit', {id: comment.sendId}) }}">{{ comment.sendName }}</a>
+                            </div>
+                            {{ comment.content|raw }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                <div class="paginator">
+                    {{ knp_pagination_render(commentsList) }}
+                </div>
+            </div>
+
+            <div id="newComment" class="back back--comments">
+                <h2 class="title">Envoyer un commentaire</h2>
+                <form action="{{ path('profil_newComment', {id: character.id}) }}" method="post">
+                    <textarea name="content" id="content"></textarea>
+                    <button class="send" type="submit">Envoyer</button>
+                </form>
+            </div>
+        </section>
+
+    <iframe id="musicProfil" width="0" height="0" src="https://www.youtube.com/embed/{{ character.musicProfilLink }}?autoplay=1&loop=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe>
+
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}

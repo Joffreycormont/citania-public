@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Citania - Inscription{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("assets/css/register.css") }}">
+{% endblock %}
+
+{% block body %}
+    <div class="background">
+
+        <section class="register">
+            <form action="{{ path('user_register_signUp') }}" method="POST">
+
+
+                {%  set formData = app.request.query.get('formData') %} 
+
+
+                {% include "template/alert.html.twig" %}
+
+
+                <div class="back back--register">
+                    <h2 class="title">Informations utilisateur</h2>
+                    <p>* requis</p>
+                    <div>
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" name="email" placeholder="Email..." value="{% if formData is not empty %} {{ formData['email'] }} {% endif %}" required>
+                        <p class="inputRules">Doit avoir un format valide, ex: "@gmail.com"</p>
+                    </div>
+                    <div>
+                        <label for="password">Mot de passe *</label>
+                        <input type="password" id="password" name="password" placeholder="Mot de passe..." value="{% if formData is not empty  %}{{ formData['password'] }}{% endif %}" required>
+                        <p class="inputRules">Doit faire 10 caractères minimum</p>
+                    </div>
+                    <div>
+                        <label for="passwordConfirm">Confirmation du mot de passe *</label>
+                        <input type="password" id="passwordConfirm" name="passwordConfirm" placeholder="Confirmation..." value="{% if formData is not empty  %}{{ formData['passwordConfirm'] }}{% endif %}" required>
+                    </div>
+                </div>
+                <div class="back back--register">
+                    <h2 class="title">Votre personnage</h2>
+                    <div>                          
+                        <label for="firstname">Prénom *</label>
+                        <input type="text" id="firstname" name="firstname" placeholder="Hero..." value="{% if formData is not empty  %}{{ formData['firstname'] }}{% endif %}" required>
+                    </div>
+                    <div>                    
+                        <label for="lastname">Nom *</label>
+                        <input type="text" id="lastname" name="lastname" placeholder="..._IQUE" value="{% if formData is not empty  %}{{ formData['lastname'] }}{% endif %}" required>
+                    </div>
+                    <p>Choisir le sexe : *</p>
+                    <div class="persos">
+                        <div class="femme">
+                            <img src="{{ asset("assets/Images/fille.png") }}" alt="">
+                            <input type="radio" name="sexe" id="fille" value="femme" required>
+                        </div>
+                        <div class="homme">
+                            <img src="{{ asset("assets/Images/homme.png") }}" alt="">
+                            <input type="radio" name="sexe" id="homme" value="homme" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="back back--register">
+                    <h2 class="title">Réglement</h2>
+                    <div class="rulesAccept">
+                        <label for="rules">* Vous acceptez et vous avez lu les <a class="link" target="_blank" href="{{ path('CGU') }}">conditions d'utilisation</a> du site.</label>
+                        <input type="checkbox" name="rules" id="rules" required>
+                    </div>
+                    <div class="g-recaptcha g-recaptcha--register" data-sitekey="6LfkoucUAAAAAHKChEQ6wGN2y6W32drYM_hJUclA"></div>
+                    <button type="submit">Créer mon compte</button>
+
+                    <a class ="link" href="{{ path("home") }}">Annuler</a>
+                </div>
+            </form>
+        </section>
+    </div>
+{% endblock %}

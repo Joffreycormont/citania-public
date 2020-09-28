@@ -1,0 +1,31 @@
+.back--robotShop{
+    width: 80%;
+}
+
+.productContainer{
+    margin: 1em auto;
+    width: 75%;
+    flex-direction: row;
+}
+
+.productContainer img.object{
+    width: 100px;
+    border-right: 1px solid rgb(226, 226, 226);
+}
+
+.productContainer h3 {
+    width: fit-content;
+}
+
+.productInfos{
+    padding: 2em;
+}
+
+.back--robotShop form{
+    margin: 0 1em;
+}
+
+.back--robotShop form button{
+    margin: 1em;
+    padding: .8em 1.5em;
+}

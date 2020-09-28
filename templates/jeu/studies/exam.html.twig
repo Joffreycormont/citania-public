@@ -1,0 +1,57 @@
+{% extends 'baseIngame.html.twig' %}
+
+{% block title %}Citania - Salle d'examen{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("assets/css/mystudies.css") }}">
+{% endblock %}
+
+
+{% block body %}
+    {% include "template/alert.html.twig" %}    
+    <div class="pageTitle">
+        <p>Salle d'examen</p>
+    </div>
+
+    <p><a class="link-arriane" href="{{ path('jeu_studies') }}">Mes études</a> <img style="width: 10px;" src="{{ asset("assets/Images/flechedroite.png") }}" alt="fléche droite"> Salle d'examen</p>
+
+    <p class="examInfos">Bienvenue dans la salle d'examen de Citania, il est temps pour toi de prouver ce que tu as retenu en passant ton examen de fin de formation, montrer que tu es prêt à exercer ce métier. Tu as bien sûr le droit de prendre des notes sur une feuille de brouillon et d'utiliser la calculatrice si besoin. <br>
+        Bonne chance.
+    </p>
+
+    <section class="back back--exam">
+        <h2 class="title">{{ test.name }}</h2>
+
+        <form action="{{ path('jeu_studies_examen_checkAnswers', {id: test.id}) }}" method="POST">
+            {% for question in test.testQuestions %}
+                <div class="question">
+                    <h3>{{ question.title }} {% if question.hasMultipleGoodAnwsers == 1 %} <span class="multipleChoice">plusieurs réponses attendues</span> {% endif %} :</h3>
+                    <h4 class="questionContent">{{ question.content }}</h4>
+                    
+                    {% for answer in shuffle(question.testAnswers) %}
+                        {% if question.hasMultipleGoodAnwsers == 0 %}
+                                <div class="answerContainer">
+                                    <input type="radio" id="{{ question.id }} {{ answer.id }}" value="{{ answer.id }}" name="question_{{ question.id }}">
+                                    <label for="{{ question.id }} {{ answer.id }}">{{ answer.content }}</label>
+                                </div>
+                        {% else %}
+                            <div class="answerContainer">
+                                <input type="checkbox" id="{{ question.id }} {{ answer.id }}" value="{{ answer.id }}" name="questionWithMultiple_{{ question.id }}_{{ answer.id }}">
+                                <label for="{{ question.id }} {{ answer.id }}">{{ answer.content }}</label>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>    
+            {% endfor %}
+            <button type="submit">Soumettre mes réponses</button>
+            <p class="note">Ps: Il te faut un minimum de 50% de bons résultats pour obtenir ton diplôme.</p>
+            <p><strong>En cas d'échec tu pourra repasser ton examen d'ici 1 année (3 jours réels).</strong></p>  
+        </form>
+    </section>
+
+
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}

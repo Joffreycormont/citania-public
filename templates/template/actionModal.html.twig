@@ -1,0 +1,32 @@
+
+<div class="actionModal modalClosed">
+    <img @click="toggleOff" class="closeModal" src="{{ asset("assets/Images/fermer.png") }}" alt="croix fermer">
+    <h2> Intéractions avec {{ character.firstname }} {{ character.lastname }}</h2>
+    <div class="actionContainer">
+        <h3>Actions sociales</h3>
+            
+        <div v-if="actionMessage != ''">
+            <div class="alertAction" :class="actionMessage[0]">
+                ${actionMessage[1]}
+                <i class="closeAction" v-if="actionMessage != ''" @click="closeFlashAction">X</i>
+            </div>
+        </div>
+        <ul>
+            {% for action in actionList %}
+                {% if action.status == 0 %}
+                    <li class="{{ action.name }}">
+                        <a ref="actionButton" @click.prevent="do{{ action.name }}" class="actionLink {{ action.name }}" userId="{{ character.id }}" 
+                        {{ action.name }}actionId="{{ action.id }}" href=""><img src="{{ asset('assets/Images/' ~ action.name ~ '.png') }}" alt="image {{ action.name }}"></a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+
+        <h3>Autres actions</h3>
+        <ul>
+            <li class="sendMessage">
+                <a href="{{ path('jeu_messages_discussion', {id: character.id}) }}" class="actionLink sendMessage"><img src="{{ asset('assets/Images/emailIconLogin.jpg') }}" width="50px" alt="image message"></a>
+            </li>   
+        </ul>
+    </div>
+</div>

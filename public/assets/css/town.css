@@ -1,0 +1,321 @@
+
+.banTown{
+    position: relative;
+    width: 100%;
+    background-color: #e7e7e7;
+    border-radius: 40px;
+    margin-top: -1.5em;
+    height: 180px;
+    padding: 0 1.5em;
+    background-image: url('../Images/bannieretown.jpg');
+    background-size: 101%;
+    background-repeat: no-repeat;
+    background-position-y: -200px;
+}
+
+.banTown img{
+    display: block;
+    margin: 0 auto;
+    padding-top: 1.5em;
+    width: 300px;
+}
+
+h2.pageTitleInGame--town{
+    background-color: #8ed077;
+    color: white;
+    width: fit-content;
+    padding: .5em;
+    border-radius: 30px;
+    position: absolute;
+    bottom: -.7em;
+}
+
+.back--governmentMessage, .back--searchPanel, .back--connectedUser{
+    width: 80%;
+    margin: 8em auto;
+}
+
+.back--searchPanel{
+    display: flex;
+    flex-direction: row-reverse;
+    flex-wrap: wrap;
+}
+
+.logoPolitique{
+    width: 200px;
+    border-right: 1px solid #8ed077;
+    padding-right: 2em;
+}
+
+.annonceLogo{
+    border-left: 1px solid #8ed077;
+    padding-left: 2em;
+}
+
+.messageContainer{
+    display:flex;
+}
+
+.message{
+    padding: 3em;
+}
+
+.annonceLogo{
+    width: 270px;
+}
+
+.searchPanel--rightside{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 25%;
+}
+
+.searchPanel--rightside a{
+    margin: 1em auto;
+}
+
+.searchPanel--description{
+    width: 100%;
+}
+
+.addAds{
+    display: flex;
+    align-items: center;
+}
+
+.addAds img{
+    width: 20px;
+    margin-right: .3em;
+    transition: .4s;
+}
+
+.back--robots .title{
+    background-color: #d0a377;;
+}
+
+.userContainer{
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.user{
+    width: 31%;
+    margin: .4em 0;
+    padding: 1em;
+    border-radius: 30px;
+    border: 2px solid rgb(161, 161, 161);
+    -webkit-box-shadow: 5px 4px 0px 1px rgb(161, 161, 161);
+    -moz-box-shadow: 5px 4px 0px 1px rgb(161, 161, 161);
+    box-shadow: 5px 4px 0px 1px rgb(161, 161, 161);
+}
+
+.user:hover{
+    border: 2px solid #6c6c6a;
+    -webkit-box-shadow: 5px 4px 0px 1px rgba(108,108,106,1);
+    -moz-box-shadow: 5px 4px 0px 1px rgba(108,108,106,1);
+    box-shadow: 5px 4px 0px 1px rgba(108,108,106,1);
+}
+
+.user h3 a{
+    color: #8ed077;
+}
+
+.userList, .characterListTemplate{
+    width: 100%;
+}
+
+.progressBar{
+    position: relative;
+}
+
+.progressBar, .progressBar--full{
+    border-radius: 10px;
+    width: 100%;
+    height: 10px;
+    background-color: #e1e1e1;
+    margin: .2em ;
+}
+
+.progressBar--full{
+    position: absolute;
+    background-color: #8dce76;
+    width: 5%;
+    margin: 0;
+    
+}
+
+.topCard, .userfooter, .userjob{
+    display: flex;
+    justify-content: space-between;
+}
+
+.topCard .left{
+    text-align: start;
+}
+
+.topCard .right{
+    text-align: end;
+}
+
+.userjob{
+    margin: .5em 0;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+.jobsLogo{
+    width: 75px;
+    padding: .5em;
+    border-radius: 100px;
+    margin: -.7em -.4em;
+}
+
+.actionButton{
+    background-color: #8ed077;
+    color: white;
+    border-radius: 20px;
+    padding: .5em .8em;
+}
+
+.actionButton:hover{
+    background-color: #d0a377;
+}
+
+.profilLink:hover, .jobsLink:hover{
+    color: #d0a377 !important;
+}
+
+.homme, .femme{
+    font-weight: bold;
+}
+
+span.subLines{
+    color: rgb(139, 139, 139);
+    font-size: .8em;
+}
+
+.user li{
+    color: rgb(139, 139, 139);
+}
+
+.filterTitle{
+    color: #8ed077;
+}
+
+.filter form{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.filter form div{
+    margin: .5em;
+}
+
+.backLink{
+    margin: 1.5em 0;
+    font-size: 1.2em;
+}
+
+.back--newAd{
+    margin: 8em auto;
+}
+
+.back--newAd form{
+    width: 100%;
+    margin: 1.5em auto;
+}
+
+.back--AdRead{
+    width: 80%;
+    margin: 8em auto;
+}
+
+.back--robots a{
+    display: block;
+    width: 35%;
+}
+
+.botContainer{
+    cursor: pointer;
+    text-align: center;
+}
+
+  ul.pagination{
+      display: flex !important;
+      margin-bottom: -2em !important;
+  }
+
+  .next a, .last a, .first a, .previous a{
+    background-color: unset;
+    font-weight: bold;
+    padding: .5em;
+    border: .5px solid lightgrey;
+    margin: 2em .4em;
+    color: #5e5e5e;
+}
+
+.page a{
+    background-color: lightgray;
+    padding: .2em;
+    color: white;
+    font-weight: bold;
+    border-radius: 40px;
+}
+
+.current{
+    background-color: #8ed077;
+    padding: .4em;
+    color: white;
+    font-weight: bold;
+    border-radius: 40px;
+}
+
+.page-link{
+    margin-top: 2em;
+}
+
+
+.adContainer{
+    width: 65%;
+    margin-right: 4em;
+}
+
+.carousel{
+    margin-top: 3em;
+}
+
+.adContainer .carousel__item{
+    position: relative;
+    background-color: #e7e7e7;
+    padding: 1em;
+    margin: 1em;
+    border-radius: 15px;
+}
+
+.adContainer .carousel__item a{
+    color: #8dce76 !important;
+}
+
+.adContainer .carousel__item h3{
+    margin: .3em 0;
+}
+
+.adNumber{
+    position: absolute;
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    background-color: white;
+    color: #8ed077;
+    top: -5px;
+    left: -5px;
+    text-align: center;
+    padding-top: .2em;
+}

@@ -1,0 +1,24 @@
+.back--legalMentions{
+    width: 80%;
+    margin-top: 16em;
+}
+
+.back--legalMentions p{
+    padding: 1em;
+}
+
+h3{
+    color: #8ed077;
+    margin: 0 1em;
+}
+
+h2{
+    padding: 1em 0;
+    color: gray;
+}
+
+p{
+    margin-left: 2em;
+    word-break: break-all;
+}
+

@@ -1,0 +1,116 @@
+.back--mystudies h4, .back--exam h4{
+    color: gray;
+}
+
+.back--mystudies h3{
+    color: rgb(44, 44, 44);
+    margin: .5em 0;
+}
+
+.back--mystudies, .back--exam{
+    width: 80%;
+}
+
+.back--mystudies a{
+    display: block;
+    width: fit-content;
+    background-color: #8ed077;
+    padding: .5em 1em;
+    border-radius: 5px;
+    color: white;
+    margin: 1em 0;
+}
+
+.studyContainer, .back--mystudies--done, .back--exam{
+    display: flex;
+}
+
+.back--mystudies--done{
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.studyContainer img{
+    align-self: flex-start;
+}
+
+.studyInfos{
+    padding: 2em;
+}
+
+.yearContainer{
+    border: 2px solid #8ed077;
+    width: 60px;
+    height: 20px;
+    border-radius: 5px;
+}
+
+.yearContainer--full{
+    border: 2px solid #8ed077;
+    background-color: #8ed077;
+}
+
+.diplome{
+    width: 370px;
+    margin: .5em;
+}
+
+.VIP, .withoutProf{
+    font-weight: bold;
+    padding: .5em .8em;
+    color: rgb(212, 167, 84);
+    font-size: .7em;
+}
+
+.stop{
+    background-color: rgb(182, 68, 68) !important;
+}
+
+form{
+    width: 85%;
+}
+
+.question{
+    width: 100%;
+    padding: 1.5em 0;
+    margin-bottom: 1em;
+    border-bottom: solid 1px #c0dbb6;
+}
+
+.questionContent{
+    margin: .8em;
+}
+
+.answerContainer{
+    display: flex;
+    width: 100%;
+    margin: .5em 0;
+    background-color: rgb(233, 233, 233);
+    border-radius: 60px;
+    padding: .5em 1em;
+}
+
+.answerContainer input{
+    margin-right: .5em ;
+}
+
+.answerContainer label, .question h4{
+    word-break: break-all;
+}
+
+.examInfos{
+    text-align: center;
+    margin: 1em;
+    font-size: 1.1em;
+}
+
+.multipleChoice{
+    color: rgb(192, 76, 76);
+    font-style: italic;
+    font-size: .65em;
+}
+
+.back--exam{
+    flex-direction: column;
+    align-items: center;
+}

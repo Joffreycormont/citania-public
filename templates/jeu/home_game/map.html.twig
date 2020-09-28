@@ -1,0 +1,31 @@
+{% extends 'baseIngame.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("assets/css/map.css") }}">
+{% endblock %}
+
+{% block title %}Citania - Plan de la ville{% endblock %}
+
+{% block body %}
+    <div class="ban banMap">
+        <h2 class="pageTitleInGame--map">Plan de la ville</h2>
+    </div>
+
+    <section class="mapContainer">
+        <nav class="mapLinks">
+            <ol>
+                <li class="desactivate"><a href=""><img src="{{ asset("assets/Images/mairielogo.png") }}" alt="logo de la mairie"><span class="mapLinks--mairie">Mairie</span></a></li>
+                <li class="desactivate"><a href=""><img src="{{ asset("assets/Images/policelogo.png") }}" alt="logo de policer"><span class="mapLinks--police">Commissariat</span></a></li>
+                <li class="desactivate"><a href=""><img src="{{ asset("assets/Images/tribunallogo.png") }}" alt="logo du tribunal"><span class="mapLinks--tribunal">Tribunal</span></a></li>
+                <li class="desactivate"><a href=""><img src="{{ asset("assets/Images/politiquelogo.png") }}" alt="assemblée nationale logo"><span class="mapLinks--politique">Assemblée nationale</span></a></li>
+                <li class=""><a href="{{ path('jeu_jobCenter') }}"><img src="{{ asset("assets/Images/jobsearchlogo.png") }}" alt="bureau emploi logo"><span class="mapLinks--emploi">Bureau Emploi</span></a></li>
+                <li class=""><a href="{{ path('jeu_formationCenter') }}"><img src="{{ asset("assets/Images/etudelogo.png") }}" alt="logo centre de formation"><span class="mapLinks--etude">Centre de Formation</span></a></li>
+                <li class="desactivate"><a href=""><img src="{{ asset("assets/Images/commercelogo.png") }}" alt="logo centre commerciale"><span class="mapLinks--commerce">Centre commercial</span></a></li>
+                <li class="desactivate"><a href=""><img src="{{ asset("assets/Images/banquelogo.png") }}" alt="logo banque de la ville"><span class="mapLinks--banque">Banque</span></a></li>
+                <li class="desactivate"><a href=""><img src="{{ asset("assets/Images/hopitallogo.png") }}" alt="logo hopital"><span class="mapLinks--hopital">Hôpital</span></a></li>
+                <li><a href="{{ path('jeu_casino') }}"><img src="{{ asset("assets/Images/casinologo.png") }}" alt="logo casino"><span class="mapLinks--casino">Casino</span></a></li>
+                <li class="desactivate"><a href=""><img src="{{ asset("assets/Images/prisonlogo.png") }}" alt="logo de la prison"><span class="mapLinks--prison">Prison</span></a></li>
+            </ol>
+        </nav>
+    </section>
+{% endblock %}

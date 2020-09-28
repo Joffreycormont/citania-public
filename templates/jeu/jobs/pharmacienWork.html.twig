@@ -1,0 +1,126 @@
+{% extends 'baseIngame.html.twig' %}
+
+{% block title %}Citania - Mon Boulot{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("assets/css/profil.css") }}">
+    <link rel="stylesheet" href="{{ asset("assets/css/jobWork.css") }}">
+    <link rel="stylesheet" href="{{ asset("assets/css/medicJob.css") }}">
+{% endblock %}
+
+
+
+{% block body %}
+
+<div class="pageTitle">
+    <h3>Mon Boulot</h3>
+</div>
+    {% include "template/alert.html.twig" %} 
+
+    <section class="back back--jobDescription">
+        <h2 class="title">Pharmacien(ne)</h2>
+        <div class="headerJob">
+            <img src="{{ asset("assets/Images/jobs/" ~ characterGlobal.job.slug ~ ".jpg") }}" width="200px" alt="image métier">
+            <div class="jobInfos">
+                <p>Bienvenue dans ta pharmacie, ton travail consistera à préparer les ordonnances que tu recevras des Citaniens, à gérer ton stock de médicaments et les commandes pour les approvisionner. Ils pourront également t’acheter un test ADN afin de connaître leur deuxième parent lorsqu’ils sont nés d’une relation hors mariage ou acheter des préservatifs pour se protéger des MST ou éviter des grossesses non désirées. <br><br>               
+                Tu toucheras le salaire que tu aura défini : <span class="priceStyle">{{ characterGlobal.pharmacy.ownerSalary }}</span> € / jour. <br><br>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="back back--jobPresentation">
+        <h2 class="title">Ma présentation</h2>
+
+        <form action="{{ path('jeu_work_editPresentation') }}" method="POST">
+            <textarea name="content" id="content">{% if characterGlobal.jobPresentation is not null  %}{{ characterGlobal.jobPresentation|raw }}{% endif %}</textarea>
+            <button type="submit">Modifier</button>
+        </form>
+
+    </section>
+
+    <section class="back">
+        <h2 class="title">Informations sur ma pharmacie</h2>
+
+        <p><strong>Caisse de ta pharmacie</strong> (budget de base alloué par le gouvernement) : <span class="priceStyle">{{ characterGlobal.pharmacy.money }}</span> €</p><br>
+        <p>Ce budget te servira à passer commande pour acheter les traitements chez les fournisseurs.</p>
+
+        <form action="{{ path('work_pharmacien_changeSalary', {pharmacy: characterGlobal.pharmacy.id}) }}" method="POST">
+            <label for="salary">Définir mon salaire</label>
+            <input min="0" type="number" name="salary" id="salary" value="{{ characterGlobal.pharmacy.ownerSalary }}">
+            <button type="submit">Modifier mon salaire</button>
+        </form>
+
+    </section>
+
+    <section class="back back--pharmacieProvider" id="jobAction">
+        <h2 class="title">Commande chez le fournisseur</h2>
+
+        <h3>Liste des traitements disponibles chez les fournisseurs :</h3>
+
+        <div class="treatmentList">
+            <form action="{{ path('work_pharmacien_commandProvider', {pharmacy: characterGlobal.pharmacy.id}) }}" method="post">
+            {% for treatment in treatmentList %}
+                <div class="treatmentProvider">
+                    <p><strong>{{ treatment.name }}</strong></p>
+                    <p>Prix (unitaire): <span class="priceStyle">{{ treatment.providerPrice }}</span> €</p>
+                    <label for="{{ treatment.name }}">Quantité</label>
+                    <input min="0" type="number" name="{{ treatment.id }}" id="{{ treatment.name }}">                
+                </div>
+            {% endfor %}
+            <br>
+            <button type="submit">Passer commande</button>    
+            </form>
+        </div>
+        
+    </section>
+
+    
+    <section class="back back--pharmacieProvider">
+        <div class="treatmentStockList">
+            <h2 class="title">Traitements en stock</h2>
+            {% if characterGlobal.pharmacy.pharmacyTreatmentStocks|length < 1 %}
+                <p>Tu n'as pas de traitement en stock pour le moment</p>
+            {% endif %}
+            <form action="{{ path('work_pharmacien_changePrice', {pharmacy: characterGlobal.pharmacy.id}) }}" method="POST">
+                {% for treatmentStock in characterGlobal.pharmacy.pharmacyTreatmentStocks %}
+                    <div class="treatmentStock">
+                        <p><strong>{{ treatmentStock.treatment.name }}</strong></p>
+                        <p>Quantité en stock : {{ treatmentStock.stockQuantity }}</p>
+                        <label for="{{ treatmentStock.treatment.name }}">Prix :</label>
+                        <input min="0" type="number" name="{{ treatmentStock.treatment.id }}" id="{{ treatmentStock.treatment.name }}" value="{{ treatmentStock.price }}">
+                        <p><em>Prix minimum </em>: {{ treatmentStock.treatment.providerPrice }} € / <em>prix maximum </em>: {{ treatmentStock.price }} €</p>
+                    </div>
+                {% endfor %}
+                <button type="submit">Changer mes prix</button>
+            </form>
+        </div>
+    </section>
+
+    <section class="back back--pharmacieProvider">
+        <h2 class="title">Demande de traîtement (patient)</h2>
+        {% for demand in characterGlobal.pharmacy.pharmacyDemands %}
+            {% if demand.characters.treatmentSubscription is not null %}
+                <div class="patientContainer">
+                    <p><strong>Patient</strong> : {{ demand.characters.firstname }} - {{ demand.characters.lastname }}</p>
+                    <p>Demande de récupération pour les traitements suivants :</p><br>
+                    <ul>
+                        {% for treatment in explodeTreatment(demand.characters.treatmentSubscription) %}
+                            <li>- {{ treatment.name }}</li>
+                        {% endfor %}
+                    </ul>
+                    <a class="button accept" href="{{ path('work_pharmacien_acceptDemand', {id: demand.id}) }}">Traîter la demande</a>
+                    <a class="button deny" href="{{ path('work_pharmacien_denyDemand', {id: demand.id}) }}">Refuser la demande</a>
+                </div>
+            {% endif %}
+        {% endfor %}
+        
+    </section>
+
+
+
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}

@@ -1,0 +1,206 @@
+select{
+    max-height: 50px;
+}
+
+.back--house, .baseHouse{
+    width: 100%;
+}
+
+.baseHouse{
+    position: relative;
+}
+
+.furniture{
+    position: absolute;
+    transition: .4s;
+}
+
+.frigo{
+    width: 11%;
+    top: 22%;
+    right: 5%;
+}
+
+.etagere{
+    width: 20%;
+    top: 25%;
+    left: 5%;
+}
+
+.armoire{
+    width: 18%;
+    top: 15%;
+    right: 30%;
+}
+
+.furniture:hover{
+    transform: scale(1.03);  
+}
+
+.back--houseModal{
+    bottom: 0;
+    margin: 0;
+    height: 42%;
+    width: 96%;
+    background-color: rgb(248, 248, 248);
+    position: absolute;
+    z-index: 20;
+    box-sizing: border-box;
+}
+
+.back--houseModal--frigo h2.title{
+    background-color: #b1cfea;
+}
+
+.back--houseModal--etagere h2.title{
+    background-color: #a26234;
+}
+
+.back--houseModal--armoire h2.title{
+    background-color: #fcb13a;
+}
+
+.closeModal img{
+    width: 18px;
+}
+
+.closeModal{
+    margin: 0;
+    margin-left: 15em;
+    margin-top: -5em;
+}
+
+.objectContainer{
+    padding: 1.5em;
+    margin-top: 2em;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: stretch;
+    overflow-x: scroll;
+}
+
+.characterObjects{
+    font-size: .8em;
+    z-index: 800;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 .5em;
+    width: 15%;
+    padding: 1.5em;
+    background-color: rgb(236, 236, 236);
+    border-radius: 30px;
+    transition: .4s;
+}
+
+.characterObjects:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+    -webkit-box-shadow: 0px 0px 49px -6px rgba(0,0,0,0.35);
+    -moz-box-shadow: 0px 0px 49px -6px rgba(0,0,0,0.35);
+    box-shadow: 0px 0px 49px -6px rgba(0,0,0,0.35);
+}
+
+.characterObjects .product{
+    background-color: #b1cfea;
+    border-radius: 30px;
+    color: white;
+    padding: .5em 1em;
+}
+
+.characterObjects img{
+    width: 100px;
+}
+
+.characterObjects p span{
+    font-size: 1.3em;
+    font-weight: bold;
+}
+
+.eatModal{
+    z-index: 801;
+    display: block;
+    position: absolute;
+    width: 100%;
+    margin-top: -1.5em;
+    background-color: white;
+    padding: 1em;
+    border-radius: 30px;
+    -webkit-box-shadow: 0px 0px 49px -6px rgba(0,0,0,0.35);
+    -moz-box-shadow: 0px 0px 49px -6px rgba(0,0,0,0.35);
+    box-shadow: 0px 0px 49px -6px rgba(0,0,0,0.35);
+}
+
+.eatModal a{
+    width: fit-content;
+    display: block;
+    margin: 1em;
+    padding: 1em;
+    background-color: rgb(231, 231, 231);
+    color: white;
+    border-radius: 30px;
+}
+
+.characterObjects:hover .characterObjects, .characterObjects:hover .eatModal{
+    cursor: pointer;
+    z-index: 21300;
+}
+
+.responseContainer{
+    display: flex;
+    margin-left: -.7em;
+}
+
+a.yes{
+    background-color: #8ed077;
+}
+
+a.no{
+    background-color: #97453a;
+}
+
+.back--characterInfos div p {
+    margin-top: .3em;
+}
+
+.back--characterInfos{
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    width: 85%;
+}
+
+.back--characterInfos--visit{
+    flex-direction: column;
+    width: fit-content;
+}
+
+
+.window{
+    display: flex;
+    margin: auto 0;
+    flex-direction: column;
+    align-items: center;
+}
+
+img.closeWindow{
+    width: 300px;
+    opacity: .2;
+}
+
+a.interrogation{
+    background-color: #8ed077;
+    border-radius: 60px;
+    color: white;
+    padding: .2em .5em;
+}
+
+.persoInfos{
+    width: 50%;
+}
+
+.persoInfos p span{
+    font-weight: bold;
+}

@@ -1,0 +1,35 @@
+{% extends 'baseIngame.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("assets/css/logbook.css") }}">
+{% endblock %}
+
+{% block title %}Citania - Journal de bord{% endblock %}
+
+{% block body %}
+    <div class="ban banlogBook">
+        <h2 class="pageTitleInGame--logBook">Journal de bord</h2>
+    </div>
+
+    <div class="back back--logbook">
+        <h2 class="title">Tous mes événements</h2>
+        
+        {% if logbookList|length == 0 %}
+            <p>Tu n'as pas encore d'événement dans ton journal pour le moment ! <br>
+                T'inquiète pas ça arrive vite ;)
+            </p>
+        {% endif %}
+        
+
+        {% for event in logbookList %}
+            <div class="eventContainer">
+                <p class="eventCategory {{ event.event }}">{{ event.event }}</p>
+                <p>{{ event.content|raw }}</p>
+                <p class="eventDate">Le {{ event.createdAt|date('d/m/y') }} à {{ event.createdAt|date('H') }} h {{ event.createdAt|date('i') }}</p>
+            </div>
+        {% endfor %}
+        <div class="paginator">
+            {{ knp_pagination_render(logbookList) }}
+        </div>
+    </div>
+{% endblock %}

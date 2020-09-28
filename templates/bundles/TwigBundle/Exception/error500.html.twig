@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Citania - Ressource non trouvée{% endblock %}</title>
+    <link rel="stylesheet" href="{{ asset("assets/css/style.css") }}">
+    <link rel="icon" type="image/png" href="{{ asset("assets/Images/citania logo.png") }}" />
+    {% block stylesheets %}{% endblock %}
+    <link rel="stylesheet" href="{{ asset("assets/css/responsive.css") }}">
+    {% if is_granted('ROLE_USER') == false %}
+        <script>
+            window.location.replace("https://citania.site");
+        </script>
+    {% endif %}  
+</head>
+<body>  
+    <main>
+        <div style="text-align: center;">
+            <img style="width: 400px; margin-top: 2em;" src="{{ asset("assets/Images/citania logo.png") }}" alt="logo citania">
+            <h3 class="errorResponse" style="font-size: 2em; margin: 2em auto;"><span>500</span> erreur serveur</h3>
+            <h4 class="errorPage">Causes possibles :</h4>
+            <ul class="">
+                <li>- Une fonctionnalité non présente sur le jeu.</li>
+                <li>- Un défaut dans une fonctionnalité, dans ce cas contacter le webmaster</li>
+                <li>- Un délais de réponse trop long</li>
+                <li>- Une maintenance du serveur</li>
+            </ul>
+            <a class="link--error" href="{{ path('home') }}">Retour à la page d'accueil</a>
+        </div>
+    </main>
+    {% include 'template/footer.html.twig' %}
+</body>
+</html>

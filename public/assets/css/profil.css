@@ -1,0 +1,345 @@
+.container{
+    margin: 0 auto;
+}
+
+.container--leftSideLink{
+    margin-bottom: 3em;
+}
+
+.back--editor, .back--editor form, .back--comments{
+    width: 95%;
+    padding-left: 2.5em;
+}
+
+.back--perso{
+    margin: 4em 0;
+    width: 40%;
+}
+
+.back p{
+    display: block;
+    word-wrap: break-word;
+    width: 100%;
+}
+
+ol{
+    margin-bottom: 2em;
+}
+
+.profilInformations{
+    width: 95%;
+    display: flex;
+    background-color: #f1f1f1;
+    border-radius: 15px;
+    margin: 0 auto;
+    -webkit-box-shadow: 3px 0px 32px -2px rgba(0,0,0,0.14);
+    -moz-box-shadow: 3px 0px 32px -2px rgba(0,0,0,0.14);
+    box-shadow: 3px 0px 32px -2px rgba(0,0,0,0.14);
+}
+
+.personnage{
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+}
+
+.personnageNames span{
+    font-weight: bold;
+}
+
+.persoContainer{
+    background-color: #e9f0f3;
+    border-radius: 15px 15px 0 0;
+    padding: 1.5em;
+}
+
+.persoContainer img{
+    margin: 0 auto;
+}
+
+.personnageNames{
+    padding: 1.5em;
+    background-color: #8ed077;
+    color: white;
+    border-radius: 0 0 15px 15px;
+}
+
+.informations{
+    display: flex;
+    width: 80%;
+    padding: 1em;
+}
+
+.personnageInformations{
+    width: 60%;
+    align-self: flex-start;
+}
+
+.personnageInformations ul{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 1em 0;
+}
+
+.others{
+    width: 39%;
+}
+
+.personnageInformations, .contact, .musicProfil{
+    background-color: #e6e6e6;
+    padding: 2em;
+    border-radius: 10px;
+    margin: .5em;
+}
+
+.contact ul{
+    max-height: 90px;
+    overflow-y: scroll;
+}
+
+.toVisitProfil{
+    margin: 1em;
+}
+
+.profilInformations h3 {
+    color: #8ed077;
+    margin-bottom: .8em;
+    font-size: 1.2em;
+}
+
+.personnageInformations a{
+     color: #d0a377;
+     text-decoration: underline;
+}
+
+.informationsContainer{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-evenly;
+}
+
+.select{
+    background-color: #d6d6d6;
+    border-radius: 10px;
+}
+
+.personnageInformations .select{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.personnageInformations li{
+    display: flex;
+    background-color: #d0d0d0;
+    border-radius: 15px;
+    margin: .6em;
+    border: 0px;
+}
+
+.personnageInformations li div {
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    padding: 0 1em;
+}
+
+.personnageInformations li span{
+    text-align: center;
+    display: block;
+    width: 150px;
+    background-color: #bfbfbf;
+    border-radius: 10px;
+    height: 100%;
+    padding: .3em;
+    font-weight: bold;
+    font-size: .9em;
+    color: #404040;
+}
+
+span.diamond{
+    background-color: #72cada !important;
+}
+
+span.money{
+    background-color: #8ed077 !important;
+}
+
+span.job{
+    background-color: #d0a377 !important;
+}
+
+
+
+.comment h3, .comment p{
+    background-color: unset;
+    color: unset;
+}
+
+form button{
+    margin: 1.5em;
+    padding: .5em 1em;
+    font-size: 1em;
+}
+
+
+
+.comment{
+    width: 95%;
+    background-color: white;
+    padding: 2.5em;
+    box-sizing: border-box;
+    border-radius: 60px;
+    margin: 1.5em;
+    word-wrap: break-word;
+    overflow: hidden;
+}
+
+.comments--waiting h2.title, #newComment h2.title{
+    background-color: #d0a377;
+}
+
+.back--editor h2.title{
+    background-color: #77abd0;
+}
+
+.commentTitle{
+    background-color: #8ed077;
+    color: white;
+    border-radius: 60px 60px 0 0;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 150%;
+    padding: 1em 2.5em;
+    box-sizing: border-box;
+    margin-top: -2.5em;
+    margin-bottom: 2em;
+    margin-left: -2.2em;
+}
+
+.back--comments .commentTitle form, .commentTitle p {
+    margin: 0;
+    display: block;
+    width: fit-content;
+}
+
+.commentTitle a{
+    display: block;
+    text-decoration: underline;
+    color: white;
+}
+
+a.validComment{
+    margin: 0 1em;
+    padding: 0.5em 1.5em;
+    background-color: white;
+    border-radius: 60px;
+    color: #8ed077;
+}
+
+.back--comments form textarea, .back--comments form{
+    width: 100%;
+}
+
+.back--comments button{
+    background-color: white;
+    color: #8ed077;
+    padding: .5em 1.5em;
+    margin: 1em;
+}
+
+.back--comments button:hover{
+    border: 1px solid white !important;
+    color: white !important
+    ;
+}
+
+#newComment button.send{
+    background-color: #d0a377;
+    color: white;
+    border: 1px solid #d0a377 !important;
+}
+
+#newComment button:hover{
+    background-color: unset !important;
+    color: #d0a377 !important;
+    border: 1px solid #d0a377 !important;
+}
+
+.back--editor .profilVisit{
+    width: 100%;
+}
+
+.user .actionfromProfil{
+    background-color: #d0a377;
+    border-radius: 60px;
+    margin: 1em;
+    padding: .5em;
+    color: white;
+    display: block;
+    width: 250px;
+    text-align: center;
+}
+
+.underProfil{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: flex-start;
+}
+
+.buttonMusicContainer{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.stopMusic{
+    width: 250px;
+    display: block;
+    background-color: #be5353;
+}
+
+
+
+
+#bars {
+    margin-top: -1em;
+    height: 100%;
+    width: 75%;
+    position: relative;
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.bar {
+    align-self: center;
+    margin: 0 -1em;
+    background: rgb(153, 55, 55);
+    bottom: 1px;
+    height: 3px;
+    width: 7px;      
+    animation: sound 0ms -2800ms linear infinite alternate;
+}
+
+@keyframes sound {
+    0% {
+       opacity: .35;
+        height: 3px; 
+    }
+    100% {
+        opacity: 1;       
+        height: 28px;        
+    }
+}
+
+.bar:nth-child(1)  { left: 1px; animation-duration: 874ms; }
+.bar:nth-child(2)  { left: 5px; animation-duration: 633ms; }
+.bar:nth-child(3)  { left: 9px; animation-duration: 607ms; }
+.bar:nth-child(4)  { left: 13px; animation-duration: 658ms; }
+.bar:nth-child(5)  { left: 17px; animation-duration: 600ms; }
+.bar:nth-child(6)  { left: 21px; animation-duration: 627ms; }
+.bar:nth-child(7)  { left: 25px; animation-duration: 641ms; }
+.bar:nth-child(8)  { left: 29px; animation-duration: 619ms; }
+.bar:nth-child(9)  { left: 33px; animation-duration: 687ms; }
+.bar:nth-child(10) { left: 37px; animation-duration: 642ms; }

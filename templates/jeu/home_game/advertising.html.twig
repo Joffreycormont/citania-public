@@ -1,0 +1,24 @@
+{% extends 'baseIngame.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("assets/css/town.css") }}">
+{% endblock %}
+
+{% block title %}Citania - Centre ville{% endblock %}
+
+{% block body %}
+
+    <div class="ban banTown">
+        <img src="{{ asset("assets/Images/townBan.png") }}" alt="bannière centre ville">
+        <h2 class="pageTitleInGame--town">Centre ville</h2>
+    </div>
+
+    <section class="back back--AdRead">
+        <h2 class="title">" {{ ad.title }} "  par {{ ad.characters.firstname }} - {{ ad.characters.lastname }}</h2>
+        <p>{{ ad.content|raw|nl2br }}</p>
+    </section>
+
+    
+    <a class="link backLink" href="{{ path('jeu_town') }}">Retour au centre ville</a>
+
+{% endblock %}

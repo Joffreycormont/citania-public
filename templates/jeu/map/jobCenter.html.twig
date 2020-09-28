@@ -1,0 +1,73 @@
+{% extends 'baseIngame.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("assets/css/mapPages.css") }}">
+{% endblock %}
+
+{% block title %}Citania - Bureau emploi{% endblock %}
+
+{% block body %}
+
+    <div class="pageTitle">
+        <h1>Bureau Emploi</h1>
+    </div>
+
+    <p><a class="link-arriane" href="{{ path('jeu_map') }}">Plan de la ville</a> <img style="width: 10px;" src="{{ asset("assets/Images/flechedroite.png") }}" alt="fléche droite"> Bureau Emploi</p> 
+
+    <div class="mapPagesWelcome">
+        <img data-aos="fade-up" data-aos-duration="1500" class="mapPages" src="{{ asset("assets/Images/jobCenter.jpg") }}" alt="bannière job center">
+        <div class="welcomeMessage">
+            
+            {% include "template/alert.html.twig" %}
+
+            <h2 data-aos="fade-left" data-aos-duration="1200">En recherche d'un emploi ?</h2>
+            <p data-aos="fade-up" data-aos-duration="1200">
+                Bienvenue dans le bureau emploi de <strong>Citania</strong>, c'est ici que tu peux choisir un métier via les offres que notre bureau met à disposition.
+                Sont disponibles pour plusieurs niveaux de qualification (diplômé ou non). <br><br>
+                Attention, si vous postulez a un métier et que vous restez inactif, vous serez licencié, avec risque de ne pas pouvoir repostuler à un métier avant un certain délai si récidive.
+            </p>
+        </div>
+    </div>
+
+    <section class="back back--mapPages">
+        <h2 class="title">Nos offres sans diplôme</h2>
+        <p style="width: 100%;">** Ne reflète pas nécessairement la réalité en terme de diplôme</p>
+        {% for job in jobList %}
+            {% if job.needStudies == 0 %}
+                {% if job.status == 0 %} 
+                    <div class="card askContainer">
+                        <img class="jobsLogo" src="{{ asset("assets/Images/jobs/" ~ job.slug ~ ".jpg") }}" alt="image métier">
+                        <h3><strong>Métier</strong>: <span class="jobTitle-{{ job.slug }}">{{ job.name }}</span></h3> 
+                        <p><strong>Description</strong> : <span>{{ job.description }}</span></p>
+                        <p><strong>Salaire journalier de</strong> : <span class="priceStyle">{{ job.salary }} €</span></p>
+                        <a @click.prevent="jobToggle" href="">Postuler</a>
+                        <p class="validNewJob modalClosed">Es-tu sûr ?<br><br><a class="yesJob" href="{{ path('jeu_jobCenter_newjob_unSkilled', {id: job.id}) }}">Oui</a> <a class="noJob" @click.prevent="jobToggleOff" href="">Non</a></p>
+                    </div>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    </section>
+
+    <section class="back back--mapPages">
+        <h2 class="title">Nos offres avec diplôme</h2>
+        {% for job in jobList %}
+            {% if job.needStudies == 1 %}
+                {% if job.status == 0 %}    
+                    <div class="card askContainer">
+                        <img class="jobsLogo" src="{{ asset("assets/Images/jobs/" ~ job.slug ~ ".jpg") }}" alt="image métier">
+                        <h3><strong>Métier</strong>: <span class="jobTitle-{{ job.slug }}">{{ job.name }}</span></h3> 
+                        <p><strong>Description</strong> : <span>{{ job.description }}</span></p>
+                        {% if job.salary == 0 %}
+                            <p>{{ job.ifSalaryZero|raw }}</p>
+                        {% else %}
+                            <p><strong>Salaire journalier de</strong> : <span class="priceStyle">{{ job.salary }} €</span></p>
+                        {% endif %}
+                        <a @click.prevent="jobToggle" href="{{ path("jeu_jobCenter_newjob_Skilled", {id: job.id}) }}">Postuler</a>
+                        <p class="validNewJob modalClosed">Es-tu sûr ?<br><br><a class="yesJob" href="{{ path('jeu_jobCenter_newjob_Skilled', {id: job.id}) }}">Oui</a> <a class="noJob" @click.prevent="jobToggleOff" href="">Non</a></p>
+                    </div>
+                {% endif %}
+            {% endif %}
+    {% endfor %}
+    </section>
+
+{% endblock %}

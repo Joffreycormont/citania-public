@@ -1,0 +1,82 @@
+{% extends 'baseIngame.html.twig' %}
+
+{% block title %}Citania - Bureau de {{ character.firstname }} {{ character.lastname }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("assets/css/profil.css") }}">
+    <link rel="stylesheet" href="{{ asset("assets/css/jobWork.css") }}">
+    <link rel="stylesheet" href="{{ asset("assets/css/medicJob.css") }}">
+{% endblock %}
+
+
+
+{% block body %}
+
+    <div class="pageTitle">
+        <h3>Pharmacien(ne) - {{ character.firstname }} {{ character.lastname }}</h3>
+    </div>
+    {% include "template/alert.html.twig" %}
+    
+    <p><a class="link-arriane" href="{{ path('jeu_town') }}">Centre ville</a> <img style="width: 10px;" src="{{ asset("assets/Images/flechedroite.png") }}" alt="fléche droite"> Pharmacien(ne) - {{ character.firstname }} {{ character.lastname }}</p> 
+
+    <div  style="text-align:center;">
+        <img src="{{ asset("assets/Images/jobs/" ~ character.job.slug ~ ".jpg") }}" width="200px" alt="image métier">
+    </div>
+
+    <section class="back back--jobDescription">
+        <h2 class="title">Sa présentation</h2>
+        <div class="headerJob">
+            <div class="jobInfos">
+                <p>{{ character.jobPresentation|raw }}</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="back">
+        <h2 class="title">Demande pour mes traitements</h2>
+
+            {% if characterGlobal.pharmacyDemand|length == 1 %}
+                <p><strong>Tu as déjà une demande en cours, tu dois attendre qu'elle soit validée par le/la pharmacien(ne)</strong></p>
+                <a class="button deny" href="{{ path('work_pharmacien_cancelDemand', {id: characterGlobal.pharmacyDemand.id}) }}">Annuler ma demande</a>
+            {% elseif characterGlobal.pharmacyDemand|length == 0  %}
+
+                {% if characterGlobal.treatmentTaken == 2 %}
+                    <p><strong>Tu as déjà reçu des médicaments pour un traitement un cours, du dois les prendre avant de pouvoir revenir ici ou chez le médecin.</strong>
+                    </p>
+                {% else %}
+                    <div class="patientContainer">
+
+                        <p>Liste des traitements disponibles dans cette pharmacie :</p>
+                        <ul>
+                            {% for treatment in treatmentList %}
+                                <li>
+                                - {{ treatment.treatment.name }} : <span class="priceStyle"> {{ treatment.price }}</span> €
+                                </li>
+                                
+                            {% endfor %}
+                        </ul>
+
+                        <ul>
+                            {% if characterGlobal.treatmentSubscription is not null %}
+                                <p>Tu as une ordonnance pour les maladies suivantes prescrite par ton médecin :</p><br>
+                                {% for treatment in explodeTreatment(characterGlobal.treatmentSubscription) %}
+                                    <li><strong>- {{ treatment.name }}</strong></li>
+                                {% endfor %}
+                                <a class="button diagnostic" href="{{ path('work_pharmacien_demandTreatment', {id: character.pharmacy.id}) }}">Demander mon traitement</a>
+                            {% else %}
+                                <p><strong>Tu n'as pas de traitement à récupérer en pharmacie</strong></p>
+                            {% endif %}
+                        </ul>
+                    </div>
+                {% endif %}
+            {% endif %}
+
+        
+    </section>
+
+
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'baseIngame.html.twig' %}
+
+{% block title %}Citania - Mes cours{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("assets/css/mystudies.css") }}">
+{% endblock %}
+
+
+{% block body %}
+    {% include "template/alert.html.twig" %}    
+    <div class="pageTitle">
+        <p>Mes cours</p>
+    </div>
+
+    <p><a class="link-arriane" href="{{ path('jeu_studies') }}">Mes études</a> <img style="width: 10px;" src="{{ asset("assets/Images/flechedroite.png") }}" alt="fléche droite"> Mes cours</p> 
+
+    {{ studie.content | raw }}
+
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}

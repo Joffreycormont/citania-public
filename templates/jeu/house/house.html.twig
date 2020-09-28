@@ -1,0 +1,148 @@
+{% extends 'baseIngame.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("assets/css/house.css") }}">
+{% endblock %}
+
+{% block title %}Citania - Ma maison{% endblock %}
+
+{% block body %}
+
+    {% include "template/alert.html.twig" %}
+
+    <section class="back back--house">
+        <h2 class="title">Ma maison</h2>
+        
+        <div class="house">
+            <img class="baseHouse" src="{{ asset("assets/Images/house/" ~ characterGlobal.house.slug ~ ".png" ) }}" alt="fond de la maison">
+                {% for furniture in houseFurnitures %}
+
+                    {% if furniture.category == 'frigo' %}
+                        <div class="modalContainer">
+                            <a @click.prevent="openHouseModal" class="furnitureLink" href=""><img class="furniture frigo" src="{{ asset("assets/Images/house/houseFurniture/" ~ furniture.slug ~ ".png" ) }}" alt=" image frigo"></a>
+                            <div class="back back--houseModal back--houseModal--frigo modalClosed">
+                                <a @click.prevent="closeHouseModal" class="closeModal closeHouse" href=""><img src="{{ asset("assets/Images/fermer.png") }}" alt=""></a>
+                                <h2 class="title">Mon frigo</h2>
+                                <div class="objectContainer">
+                                    {% for object in characterGlobal.objectCharacters %}
+                                        {% if object.stockCategory.slug == 'frigo' %}
+                                            <div @click="eat" class="characterObjects" data-product="{{ object.id }}">
+                                                <p class="product disabled">{{ object.name }}</p>
+                                                <img class="disabled" src="{{ asset("assets/Images/house/characterObject/" ~ object.slug ~ ".jpg") }}" alt="image objet">
+                                                <p>Quantité : <span class="quantity">{{ object.quantity }}</span></p>
+                                                <div class="browser-screen-loading-content modalClosed">
+                                                    <div class="loading-dots dark-gray">
+                                                      <i></i>
+                                                      <i></i>
+                                                      <i></i>
+                                                      <i></i>
+                                                    </div>
+                                                </div>
+                                                <div class="eatModal modalClosed">
+                                                    <p>
+                                                    Souhaites-tu utiliser cet aliment/boisson ? <br>
+                                                        <select class="eatQuantity" name="quantity" id="quantity">
+                                                            {% for i in 1..100 %}
+                                                                <option value="{{ i }}">{{ i }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                        <div class="responseContainer">
+                                                            <a href="#" @click.prevent="validEat" class="response yes">Oui</a> <a @click.prevent="closeEatReponseModal" class="response no" href="#">Non</a>
+                                                        </div>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {% if furniture.category == 'etagere' %}
+                        <div class="modalContainer">
+                            <a @click.prevent="openHouseModal" class="furnitureLink" href=""><img class="furniture etagere" src="{{ asset("assets/Images/house/houseFurniture/" ~ furniture.slug ~ ".png" ) }}" alt=" image etagere"></a>
+                            <div class="back back--houseModal back--houseModal--etagere modalClosed">
+                                <a @click.prevent="closeHouseModal" class="closeModal closeHouse" href=""><img src="{{ asset("assets/Images/fermer.png") }}" alt=""></a>
+                                <h2 class="title">Mon étagère</h2>
+                                <div class="objectContainer">
+                                    {% for object in characterGlobal.objectCharacters %}
+                                        {% if object.stockCategory.slug == 'etagere' %}
+                                            <div @click="eat" class="characterObjects" data-product="{{ object.id }}">
+                                                <p class="product disabled">{{ object.name }}</p>
+                                                <img class="disabled" src="{{ asset("assets/Images/house/characterObject/" ~ object.slug ~ ".jpg") }}" alt="image objet">
+                                                <p>Quantité : <span class="quantity">{{ object.quantity }}</span></p>
+                                                <div class="browser-screen-loading-content modalClosed">
+                                                    <div class="loading-dots dark-gray">
+                                                    <i></i>
+                                                    <i></i>
+                                                    <i></i>
+                                                    <i></i>
+                                                    </div>
+                                                </div>
+                                                <div class="eatModal modalClosed">
+                                                    <p>
+                                                    Souhaites-tu utiliser cet objet ? <br>
+                                                        {% if object.slug == "treatment" %}
+                                                            <select hidden class="eatQuantity" name="quantity" id="quantity">
+                                                                <option hidden value="1">1</option>
+                                                            </select>
+                                                        {% endif %}
+                                                        <div class="responseContainer">
+                                                            <a href="#" @click.prevent="validEat" class="response yes">Oui</a> <a @click.prevent="closeEatReponseModal" class="response no" href="#">Non</a>
+                                                        </div>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {% if furniture.category == 'armoire' %}
+                        <div class="modalContainer">
+                            <a @click.prevent="openHouseModal" class="furnitureLink" href=""><img class="furniture armoire" src="{{ asset("assets/Images/house/houseFurniture/" ~ furniture.slug ~ ".png" ) }}" alt=" image frigo"></a>
+                            <div class="back back--houseModal back--houseModal--armoire modalClosed">
+                                <a @click.prevent="closeHouseModal" class="closeModal" href=""><img src="{{ asset("assets/Images/fermer.png") }}" alt=""></a>
+                                <h2 class="title">Mon armoire</h2>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                {% endfor %}
+        </div>
+
+    </section>
+
+    <div class="back back--characterInfos">
+        <h2 class="title">Informations santé / fenêtre vie privée</h2>
+
+        <div class="persoInfos">
+            <life-Barre ref="lifebarre"></life-Barre>
+            <a class="wasteLink" href="{{ path('jeu_profil_trashOut') }}">Sortir mes poubelles <img style="width: 15px;" src="{{ asset("assets/Images/eboueurLogoWhite.jpg") }}" alt="image poubelle"></a>
+            <a class="wasteLink" href="{{ path('jeu_profil_toilet') }}">Aller aux toilettes</a>
+            <a class="wasteLink" href="{{ path('jeu_profil_takeShower') }}">Prendre une douche</a>
+        </div>      
+
+        <div class="window">
+            {% if characterGlobal.isWindowOpen == 0 %}
+                <p class="windowStatus">Fenêtre fermée</p>
+            {% else %}
+                <p class="windowStatus">Fenêtre ouverte</p>
+                <form class="closeWindowLink" action="{{ path('jeu_profil_closeWindow') }}" method="post">
+                    <button type="submit" class="link">Fermer ma fenêtre</button>
+                </form>
+            {% endif %}
+            <a href=""><img class="{% if characterGlobal.isWindowOpen == false %}closeWindow{% endif %}" src="{{ asset("assets/Images/window.png") }}" alt="image fenêtre"></a>
+            <a href="" class="interrogation">?</a>
+        </div>
+
+    </div>
+    
+    <div class="back">
+
+    </div>
+
+{% endblock %}

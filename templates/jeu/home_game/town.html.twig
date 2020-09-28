@@ -1,0 +1,67 @@
+{% extends 'baseIngame.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("assets/css/town.css") }}">
+{% endblock %}
+
+{% block title %}Citania - Centre ville{% endblock %}
+
+{% block body %}
+    <div class="ban banTown">
+        <h2 class="pageTitleInGame--town">Centre ville</h2>
+    </div>
+
+    <section class="back back--governmentMessage">
+        <h2 class="title">Message du gouvernement</h2>
+        <div class="messageContainer">
+            <img class="logoPolitique" src="{{ asset("assets/Images/politiquelogo.png") }}" alt="image assemblé nationale">
+            <p class="message">"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
+        </div>
+    </section>
+
+    <section class="back back--searchPanel">
+        <h2 class="title">Panneau des annonces des citanien(nes)</h2>
+        <p class="searchPanel--description">Vous retrouvez ici les 10 dernières annonces postées par les habitants de la ville.</p>
+        <div class="searchPanel--rightside">
+            <img class="annonceLogo" src="{{ asset("assets/Images/annonce.jpg") }}" alt="logo annonce du centre ville">
+            <a class="link addAds" href="{{ path('jeu_town_advertising') }}"> <img src="{{ asset("assets/Images/croixplus.png") }}" alt="image + ajouter"> Ajouter une annonce</a>
+        </div>
+        <div class="adContainer">
+            <div class='carousel'>
+                {% for key, ad in advertisingList %}
+                    <div class='carousel__item'>
+                        <div class="adNumber">
+                            {{ key + 1 }}
+                        </div>
+                        <a class="titleLink" href="{{ path('jeu_town_advertising_toSee', {id: ad.id }) }}"><h3>{{ ad.title }}</h3></a>
+                        <p>Postée par : <a class="annonceLink" href="{{ path('profil_visit', {id: ad.characters.id}) }}">{{ ad.characters.firstname }} - {{ ad.characters.lastname }}</a></p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <section class="back back--robots">
+        <h2 class="title">Les robots métiers</h2>
+        <p>En cas d'absence de trop de joueur les robots remplaceront les joueurs pour les points vitaux du jeu.</p>
+        <h3>Robot(s) actif(s) : </h3>
+        {% for bot in botList %}
+            {% if bot.status == 1 %}
+                    <a href="{{ path('jeu_bot_' ~ bot.slug ~ '') }}" class="card botContainer">
+                        <img class="jobsLogo disabled" src="{{ asset("assets/Images/jobs/" ~ bot.slug ~ ".jpg") }}" alt="image métier">
+                        <p class="disabled">{{ bot.name }}</p>
+                    </a>
+            {% endif %}
+        {% endfor %}
+    </section>
+
+    <section class="back back--connectedUser">
+        <h2 class="title">Les joueurs en ville connectés</h2>
+        <character-List-Town></character-List-Town>
+    </section>
+        
+{% endblock %}
+
+{% block javascrpit %}
+
+{% endblock %}

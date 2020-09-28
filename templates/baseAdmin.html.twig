@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="refresh" content="910" />
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="stylesheet" href="{{ asset("assets/css/style.css") }}">
+        <link rel="stylesheet" href="{{ asset("assets/css/admin.css") }}">
+        <link rel="icon" type="image/png" href="{{ asset("assets/Images/citania logo.png") }}" />
+        {% block stylesheets %}{% endblock %}
+        <link rel="stylesheet" href="{{ asset("assets/css/responsive.css") }}">
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+        <script
+        src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous"></script>
+        <script src="https://cdn.tiny.cloud/1/yopi7z0wu8x5ozppfngqhnk09ikgk629qkia1dx3mupuxbsz/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+        <div class="tinyAssetData" data-tiny="{{ app.request.scheme ~'://' ~ app.request.httpHost ~ asset('assets/tinyLang/fr_FR.js') }}"></div>
+        <script defer>
+        
+        let tinyAssetData = $('.tinyAssetData').data('tiny');
+        
+        tinymce.init({   selector: 'textarea',
+            language_url: tinyAssetData,
+            language: 'fr_FR',
+            width: '100%',
+            height: '400px',
+            entity_encoding: 'raw',
+            paste_auto_cleanup_on_paste: true,
+            //premium plugins tiny : a11ychecker advcode casechange formatpainter linkchecker linkchecker checklist mediaembed pageembed permanentpen powerpaste advtable tinycomments
+            plugins: ' link image lists media table tinydrive',
+            toolbar: 'a11ycheck casechange checklist code pageembed table link image',
+            toolbar_drawer: 'floating',
+            tinycomments_mode: 'embedded',
+            tinycomments_author: 'Author name',
+            });
+        </script>
+    </head>
+    <body>
+        {% set characterGlobal = GlobalVariablesTwig.charactersInfo() %}
+        <div id="app">
+            <div class="adminContainer">
+                <div class="fill">
+                    <header class="adminHeader">
+                        <h1>Panel d'administration</h1>
+                        <div class="userAdmin">
+                            <div class="adminName">
+                                <h2>{{ characterGlobal.firstname }} {{ characterGlobal.lastname }}</h2>
+                                {% if characterGlobal.user.roles[0] == 'ROLE_SUPERADMIN' %}
+                                    <p class="adminRole--dev">Développeur</p>
+                                {% elseif characterGlobal.user.roles[0] == 'ROLE_ADMIN' %}
+                                    <p class="adminRole--admin">Administrateur</p>
+                                {% endif %}
+                            </div>
+                            <a href="{{ path('jeu_house') }}" title="Retour au jeu"><img src="{{ asset("assets/Images/backarrow.jpg") }}" alt="fléche de retour"></a>
+                        </div>
+                        <nav>
+                            <h3>Navigation</h3>
+                            <ul>
+                                <li><a href="{{ path('admin_panel') }}">Accueil</a></li>
+                                <li><a href="{{ path('admin_panel_userList') }}">Liste des utilisateurs</a></li>
+                                <li><a href="">Signalements</a></li>
+                                <li><a href="">Modération des annonces</a></li>
+                                <li><a href="">Modération des profils</a></li>
+                                <li><a href="">Modération des commentaires</a></li>
+                                <li><a href="">Modération des messages</a></li>
+                                <li><a href="">Historique des achats premium</a></li>
+                            </ul>
+                        </nav>
+                    </header>
+                </div> 
+                <main>
+                    {% block body %}{% endblock %}
+                </main>
+            </div>
+        </div>
+        {% block javascripts %}{% endblock %}
+        <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+        <script>
+            AOS.init();
+        </script>
+        {{ encore_entry_script_tags("app") }}
+    </body>
+</html>

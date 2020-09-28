@@ -1,0 +1,84 @@
+{% extends 'baseIngame.html.twig' %}
+
+{% block title %}Citania - Ma Messagerie{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("assets/css/message.css") }}">
+{% endblock %}
+
+{% block body %}
+    <div class="pageTitle">
+        <p>Ma messagerie</p>
+    </div>
+
+    {% include "template/alert.html.twig" %}
+     
+    <p>Il te reste {{ characterGlobal.stamps }} timbre(s) en stock</p>
+
+    <div class="back">
+        <h2 class="title">Envoyer un nouveau message</h2>
+        <get-Characters-Form></get-Characters-Form>
+    </div>
+
+    <div class="container--messages">
+
+        <div class="back back--friends">
+            <h2 class="title">Mes contacts</h2>
+            {% for friend in friendList %}
+            {% if friend.status == 1 %}
+                <li>
+                    {% if characterGlobal.id != friend.receiver.id %}
+                        <a class="{% if friend.receiver.sexe == "homme" %} homme {% elseif friend.receiver.sexe == "femme" %} femme {% endif %}" href="{{ path('jeu_messages_discussion', {id: friend.receiver.id }) }}"> {{ friend.receiver.firstname }} - {{ friend.receiver.lastname }}, {{ friend.receiver.age}} ans  </a>     
+                    {% else %}
+                        <a class="{% if friend.send.sexe == "homme" %} homme {% elseif friend.send.sexe == "femme" %} femme {% endif %}" href="{{ path('jeu_messages_discussion', {id: friend.send.id }) }}"> {{ friend.send.firstname }} - {{ friend.send.lastname }}, {{ friend.send.age}} ans  </a>
+                    {% endif %}
+                </li>
+            {% endif %}
+        {% endfor %}
+        </div>
+
+        <div class="back back--messageList">
+            <h2 class="title">Mes derniers messages</h2>
+            {% set iteration = 0 %}
+            {% for message in messageList %}
+                {% if message.status == 1 or message.status == 2 %}
+                    <div class="messageListItem">
+                        <div>
+                            {% if message.send.id == characterGlobal.id %}
+                                {% if receiverCharacter[iteration].id is not defined %}
+                                    {% set iteration = (receiverCharacter|length - 1) %}
+                                {% endif %}                          
+                            <h2>
+                                <a href="{{ path('jeu_messages_discussion', {id: receiverCharacter[iteration].id}) }}#last"> Discussion avec : {{ receiverCharacter[iteration].firstname }} {{ receiverCharacter[iteration].lastname }}</a>
+                                {% if message.status == 1 %} {% if message.receiverId == characterGlobal.id %} <span class="newMessage">Nouveau(x) Message(s)</span> {% endif %} {% endif %}
+                            </h2>
+                            <p>{{ message.message|slice(0,50)|replace({'img src=': "p"})|raw }}....</p>                              
+                        {% else %} 
+                            <h2>
+                                <a href="{{ path('jeu_messages_discussion', {id: message.send.id}) }}#last"> Discussion avec : {{ message.send.firstname }} {{ message.send.lastname }}</a>
+                                {% if message.status == 1 %} {% if message.receiverId == characterGlobal.id %} <span class="newMessage">Nouveau(x) Message(s)</span>{% endif %} {% endif %}
+                            </h2>
+                            <p>{{ message.message|slice(0,50)|replace({'img src=': "p"})|raw }}....</p>
+                        
+                        {% endif %}
+                        </div>
+                        <p>Message envoyé le : {{ message.createdAt|date('d/m/y') }} à {{ message.createdAt|date('H') }} h {{ message.createdAt|date('i') }}</p>
+                    </div>
+                {% endif %}
+
+                {% if message.receiverId != characterGlobal.id %}
+                    {% set iteration = iteration + 1 %}
+                {% endif %}
+
+            {% endfor %}
+            <div class="paginator">
+                {{ knp_pagination_render(messageList) }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}
